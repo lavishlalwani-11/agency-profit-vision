@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ailo - Your Partner in Building a Winning Agency</title>
+    <title>Ailo Core - Complete Property Management System</title>
     <style>
         :root {
             /* Ailo Brand Colors - from ailo.io */
@@ -28,6 +28,7 @@
             /* Shadows - minimal and clean */
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 12px rgba(0, 0, 0, 0.06);
 
             /* Border radius */
             --radius-sm: 6px;
@@ -111,6 +112,10 @@
             opacity: 0.65;
         }
 
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
         .dropdown {
             position: relative;
         }
@@ -153,6 +158,11 @@
             opacity: 1;
         }
 
+        .dropdown-content a.active {
+            background: var(--sky-blue);
+            color: var(--primary-action);
+        }
+
         .nav-cta {
             background: var(--primary-action);
             color: var(--white) !important;
@@ -177,23 +187,18 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: calc(var(--spacing-3xl) + 60px) var(--spacing-lg) var(--spacing-2xl);
             background: var(--sky-blue);
-            padding: var(--spacing-3xl) var(--spacing-lg);
-            padding-top: calc(var(--spacing-3xl) + 60px);
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            margin: 0 auto;
             text-align: center;
         }
 
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
         .hero h1 {
-            font-size: clamp(40px, 6vw, 64px);
+            font-size: clamp(40px, 6vw, 56px);
             font-weight: 700;
             color: var(--text-dark);
             margin-bottom: var(--spacing-md);
@@ -202,13 +207,18 @@
         }
 
         .hero p {
-            font-size: clamp(18px, 2.5vw, 24px);
+            font-size: clamp(18px, 2.5vw, 22px);
             color: var(--text-medium);
-            margin-bottom: var(--spacing-xl);
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto var(--spacing-lg);
             line-height: 1.5;
+        }
+
+        .hero-price {
+            font-size: clamp(32px, 4vw, 40px);
+            font-weight: 700;
+            color: var(--primary-action);
+            margin-bottom: var(--spacing-xl);
         }
 
         .hero-buttons {
@@ -216,7 +226,6 @@
             gap: var(--spacing-sm);
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: var(--spacing-xl);
         }
 
         .btn-primary {
@@ -252,23 +261,6 @@
             opacity: 0.7;
         }
 
-        .scroll-indicator {
-            margin-top: var(--spacing-lg);
-            opacity: 0.4;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(8px); }
-        }
-
-        .scroll-indicator svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--text-dark);
-        }
-
         /* Sections */
         section {
             padding: var(--spacing-3xl) var(--spacing-lg);
@@ -286,15 +278,72 @@
             margin-bottom: var(--spacing-xl);
             letter-spacing: -0.02em;
             line-height: 1.2;
-        }
-
-        /* Shift Statement */
-        .shift-statement {
-            background: var(--white);
             text-align: center;
         }
 
-        .shift-statement h2 {
+        /* Features Grid */
+        .features {
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .feature-block {
+            background: var(--cloud-gray);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .feature-block h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .feature-block ul {
+            list-style: none;
+        }
+
+        .feature-block li {
+            font-size: 15px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-sm);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-block li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+        }
+
+        /* Coaching Section */
+        .coaching {
+            background: var(--pink-accent);
+            text-align: center;
+        }
+
+        .coaching-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .coaching h2 {
             font-size: clamp(32px, 5vw, 48px);
             font-weight: 700;
             margin-bottom: var(--spacing-md);
@@ -302,130 +351,121 @@
             letter-spacing: -0.02em;
         }
 
-        .shift-statement p {
+        .coaching .subheadline {
             font-size: clamp(18px, 2.5vw, 22px);
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
             color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 600;
         }
 
-        /* Three Pillars */
-        .three-pillars {
+        .coaching-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            text-align: left;
+        }
+
+        .coaching-item {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+        }
+
+        .coaching-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Who This Is For */
+        .who-for {
             background: var(--cloud-gray);
         }
 
-        .three-pillars .section-title {
-            text-align: center;
-        }
-
-        .pillars-grid {
+        .who-for-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-lg);
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
         }
 
-        .pillar-card {
+        .who-for-card {
             background: var(--white);
             padding: var(--spacing-xl) var(--spacing-lg);
             border-radius: var(--radius-lg);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .who-for-card p {
+            font-size: 18px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Core Difference */
+        .core-difference {
+            background: var(--white);
             text-align: center;
         }
 
-        .pillar-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
+        .core-difference-content {
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .pillar-icon {
-            font-size: 56px;
-            margin-bottom: var(--spacing-md);
-            display: block;
-        }
-
-        .pillar-card h3 {
-            font-size: 28px;
+        .core-difference h2 {
+            font-size: clamp(32px, 5vw, 48px);
             font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .core-difference .main-statement {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 600;
+        }
+
+        .not-included-box {
+            background: var(--sky-blue);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .not-included-box h4 {
+            font-size: 18px;
+            font-weight: 600;
             margin-bottom: var(--spacing-sm);
             color: var(--text-dark);
         }
 
-        .pillar-card p {
+        .not-included-box p {
             font-size: 16px;
             color: var(--text-medium);
             line-height: 1.6;
         }
 
-        /* Outcome Metrics */
-        .outcome-metrics {
-            background: var(--white);
+        .compare-link {
+            color: var(--primary-action);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: opacity 0.2s ease;
         }
 
-        .outcome-metrics .section-title {
-            text-align: center;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+        .compare-link:hover {
+            opacity: 0.7;
         }
 
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-xl);
-        }
-
-        .metric-card {
-            background: var(--sky-blue);
-            padding: var(--spacing-xl) var(--spacing-lg);
-            border-radius: var(--radius-lg);
-            transition: transform 0.2s ease;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .metric-card:nth-child(2) {
-            background: var(--pink-accent);
-        }
-
-        .metric-card:nth-child(3) {
+        /* Customer Story */
+        .customer-story {
             background: var(--cloud-gray);
         }
 
-        .metric-card:nth-child(4) {
-            background: var(--sky-blue);
-        }
-
-        .metric-icon {
-            font-size: 40px;
-            margin-bottom: var(--spacing-sm);
-            display: block;
-        }
-
-        .metric-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: var(--spacing-sm);
-            color: var(--text-dark);
-        }
-
-        .metric-card p {
-            font-size: 15px;
-            color: var(--text-medium);
-            line-height: 1.6;
-        }
-
-        /* Social Proof */
-        .social-proof {
-            background: var(--cloud-gray);
-        }
-
-        .testimonial-card {
+        .story-card {
             background: var(--white);
             padding: var(--spacing-xl) var(--spacing-lg);
             border-radius: var(--radius-lg);
@@ -433,22 +473,21 @@
             margin: 0 auto;
         }
 
-        .testimonial-quote {
-            font-size: clamp(22px, 3vw, 32px);
+        .story-quote {
+            font-size: clamp(20px, 3vw, 28px);
             line-height: 1.5;
             color: var(--text-dark);
             margin-bottom: var(--spacing-lg);
             font-weight: 500;
         }
 
-        .testimonial-attribution {
+        .story-attribution {
             display: flex;
             align-items: center;
             gap: var(--spacing-sm);
-            margin-bottom: var(--spacing-md);
         }
 
-        .testimonial-avatar {
+        .story-avatar {
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -462,62 +501,58 @@
             flex-shrink: 0;
         }
 
-        .testimonial-author {
+        .story-author {
             flex: 1;
         }
 
-        .testimonial-name {
+        .story-name {
             font-weight: 700;
             font-size: 17px;
             color: var(--text-dark);
-            margin-bottom: 2px;
         }
 
-        .testimonial-company {
+        .story-company {
             color: var(--text-medium);
             font-size: 15px;
         }
 
-        .testimonial-cta {
-            color: var(--text-dark);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            transition: opacity 0.2s ease;
-            display: inline-block;
+        .story-portfolio {
+            color: var(--text-light);
+            font-size: 14px;
         }
 
-        .testimonial-cta:hover {
-            opacity: 0.65;
-        }
-
-        /* Different by Design */
-        .different-design {
-            background: var(--primary-action);
-            color: var(--white);
+        /* Pricing CTA */
+        .pricing-cta {
+            background: var(--pink-accent);
             text-align: center;
         }
 
-        .different-design h2 {
+        .pricing-cta h2 {
             font-size: clamp(32px, 5vw, 48px);
             font-weight: 700;
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
             letter-spacing: -0.02em;
         }
 
-        .different-design .tagline {
-            font-size: clamp(18px, 2.5vw, 24px);
-            margin-bottom: var(--spacing-md);
-            font-weight: 600;
-            opacity: 0.95;
+        .pricing-cta .price {
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--primary-action);
+            margin-bottom: var(--spacing-sm);
         }
 
-        .different-design p {
-            font-size: clamp(16px, 2vw, 18px);
-            line-height: 1.7;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.9;
+        .pricing-cta .subtext {
+            font-size: 16px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pricing-cta-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         /* Footer */
@@ -670,20 +705,27 @@
                 display: block;
             }
 
-            .pillars-grid {
+            .features-grid {
                 grid-template-columns: 1fr;
             }
 
-            .metrics-grid {
+            .who-for-grid {
                 grid-template-columns: 1fr;
             }
 
-            .hero-buttons {
+            .coaching-list {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons,
+            .pricing-cta-buttons {
                 flex-direction: column;
+                align-items: center;
             }
 
             .btn-primary, .btn-secondary {
                 width: 100%;
+                max-width: 300px;
                 text-align: center;
             }
 
@@ -712,17 +754,17 @@
             <button class="menu-toggle" aria-label="Toggle menu">☰</button>
             <ul class="nav-menu">
                 <li class="dropdown">
-                    <a href="product-overview.html">Product</a>
+                    <a href="product-overview.html" class="active">Product</a>
                     <div class="dropdown-content">
                         <a href="product-overview.html">Overview</a>
-                        <a href="product-core.html">Core</a>
+                        <a href="product-core.html" class="active">Core</a>
                         <a href="product-accelerate.html">Accelerate</a>
                         <a href="product-partnership.html">Partnership</a>
                     </div>
                 </li>
                 <li><a href="#coaching">Coaching</a></li>
-                <li><a href="#customer-stories">Customer Stories</a></li>
-                <li><a href="#vision">Vision</a></li>
+                <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                <li><a href="index.html#vision">Vision</a></li>
                 <li><a href="#the-plan">The Plan</a></li>
                 <li><a href="#get-started" class="nav-cta">Get Started</a></li>
             </ul>
@@ -732,112 +774,210 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Your Partner in Building a Winning Agency</h1>
-            <p>Beyond software. Ailo gives you the platform, knowledge, and partnership to grow revenue, elevate performance, and scale with confidence.</p>
+            <h1>Everything you need to run an award-winning agency</h1>
+            <p>The complete property management system that replaces your legacy tech stack. One platform for money, communication, compliance, and operations.</p>
+            <div class="hero-price">$4.50 per property/month</div>
             <div class="hero-buttons">
-                <a href="product-overview.html" class="btn-primary">Explore the Platform</a>
-                <a href="#outcome-metrics" class="btn-secondary">See How It Works</a>
-            </div>
-            <div class="scroll-indicator">
-                <svg fill="none" viewBox="0 0 24 24" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
+                <a href="#get-started" class="btn-primary">Start with Core</a>
+                <a href="#contact" class="btn-secondary">Book a Demo</a>
             </div>
         </div>
     </section>
 
-    <!-- Shift Statement Section -->
-    <section class="shift-statement" id="vision">
+    <!-- What's Included Section -->
+    <section class="features">
         <div class="container">
-            <h2>Property management has changed</h2>
-            <p>Great technology isn't enough anymore. You need a partner who understands your business, tracks what matters, and helps you transform—not just digitize.</p>
-        </div>
-    </section>
+            <h2 class="section-title">One platform. Everything included.</h2>
+            <div class="features-grid">
+                <!-- Money & Payments -->
+                <div class="feature-block">
+                    <span class="feature-icon">💰</span>
+                    <h3>Money & Payments</h3>
+                    <ul>
+                        <li>Real-time rent collection and disbursements</li>
+                        <li>Automated payment processing</li>
+                        <li>Trust accounting and reconciliation</li>
+                        <li>Owner and supplier payments</li>
+                        <li>Financial reporting</li>
+                    </ul>
+                </div>
 
-    <!-- Three Pillars Section -->
-    <section class="three-pillars" id="three-pillars">
-        <div class="container">
-            <h2 class="section-title">Three pillars of success</h2>
-            <div class="pillars-grid">
-                <div class="pillar-card">
-                    <span class="pillar-icon">⚡</span>
-                    <h3>Product</h3>
-                    <p>The platform that powers efficient operations</p>
+                <!-- Communication Hub -->
+                <div class="feature-block">
+                    <span class="feature-icon">💬</span>
+                    <h3>Communication Hub</h3>
+                    <ul>
+                        <li>Unified inbox for all interactions</li>
+                        <li>Investor and renter messaging</li>
+                        <li>Email integration</li>
+                        <li>Communication history and audit trails</li>
+                        <li>Templates and automated responses</li>
+                    </ul>
                 </div>
-                <div class="pillar-card">
-                    <span class="pillar-icon">🎯</span>
-                    <h3>Coaching</h3>
-                    <p>Expert guidance that elevates your team</p>
+
+                <!-- Compliance & Inspections -->
+                <div class="feature-block">
+                    <span class="feature-icon">✓</span>
+                    <h3>Compliance & Inspections</h3>
+                    <ul>
+                        <li>Property inspections (entry, routine, exit)</li>
+                        <li>Mobile inspection app</li>
+                        <li>Photo documentation and reports</li>
+                        <li>Compliance tracking and reminders</li>
+                        <li>Lease management</li>
+                    </ul>
                 </div>
-                <div class="pillar-card">
-                    <span class="pillar-icon">🤝</span>
-                    <h3>Partnership</h3>
-                    <p>Pricing that aligns with your success</p>
+
+                <!-- Leasing & Tenant Management -->
+                <div class="feature-block">
+                    <span class="feature-icon">🏠</span>
+                    <h3>Leasing & Tenant Management</h3>
+                    <ul>
+                        <li>Vacancy advertising</li>
+                        <li>Application processing</li>
+                        <li>Lease creation and e-signing</li>
+                        <li>Bond lodgement</li>
+                        <li>Tenant onboarding</li>
+                    </ul>
+                </div>
+
+                <!-- Growth & Lead Management -->
+                <div class="feature-block">
+                    <span class="feature-icon">📈</span>
+                    <h3>Growth & Lead Management</h3>
+                    <ul>
+                        <li>Structured lead tracking workflows</li>
+                        <li>Lead capture and qualification</li>
+                        <li>Conversion pipeline management</li>
+                        <li>Landlord onboarding journeys</li>
+                        <li>Follow-up automation and reminders</li>
+                        <li>Lead source tracking and ROI</li>
+                    </ul>
+                </div>
+
+                <!-- Projects -->
+                <div class="feature-block">
+                    <span class="feature-icon">🔧</span>
+                    <h3>Projects</h3>
+                    <ul>
+                        <li>Task management and assignment</li>
+                        <li>Maintenance coordination</li>
+                        <li>Tradespeople integration</li>
+                        <li>Calendar and scheduling</li>
+                        <li>Team collaboration tools</li>
+                    </ul>
+                </div>
+
+                <!-- Advanced Analytics & Reporting -->
+                <div class="feature-block">
+                    <span class="feature-icon">📊</span>
+                    <h3>Advanced Analytics & Reporting</h3>
+                    <ul>
+                        <li>Portfolio performance dashboards</li>
+                        <li>Property-level insights</li>
+                        <li>Team performance metrics</li>
+                        <li>Financial analytics</li>
+                        <li>Custom reporting</li>
+                        <li>Arrears tracking and trends</li>
+                        <li>Owner satisfaction metrics</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Outcome Metrics Section -->
-    <section class="outcome-metrics" id="outcome-metrics">
+    <!-- Coaching Section -->
+    <section class="coaching">
         <div class="container">
-            <h2 class="section-title">What agencies achieve with Ailo's Business Operating System</h2>
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <span class="metric-icon">💰</span>
-                    <h3>Command higher management fees with demonstrable service quality</h3>
-                    <p>Stop competing on price. Showcase your value with clear metrics and premium delivery.</p>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-icon">📈</span>
-                    <h3>Grow portfolio by 50% without adding overhead</h3>
-                    <p>Scale efficiently with smart automation and optimized workflows.</p>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-icon">👥</span>
-                    <h3>Reduce staff turnover by half while improving performance</h3>
-                    <p>Better tools and clearer processes create happier, more productive teams.</p>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-icon">📊</span>
-                    <h3>Make strategic decisions backed by data, not gut feel</h3>
-                    <p>See your business clearly. Move forward with confidence.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof Section -->
-    <section class="social-proof" id="customer-stories">
-        <div class="container">
-            <div class="testimonial-card">
-                <p class="testimonial-quote">"Ailo didn't just give us better software—they transformed how we run our business. We've grown 40% while our team is happier than ever."</p>
-                <div class="testimonial-attribution">
-                    <div class="testimonial-avatar">SC</div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-name">Sarah Chen</div>
-                        <div class="testimonial-company">Principal, Brighton Property Management</div>
+            <div class="coaching-content">
+                <h2>Up to 10 hours per month of dedicated coaching</h2>
+                <p class="subheadline">Your success starts with support</p>
+                <div class="coaching-list">
+                    <div class="coaching-item">
+                        <h4>Platform onboarding and setup</h4>
+                    </div>
+                    <div class="coaching-item">
+                        <h4>Workflow optimization</h4>
+                    </div>
+                    <div class="coaching-item">
+                        <h4>Best practice guidance</h4>
+                    </div>
+                    <div class="coaching-item">
+                        <h4>Monthly strategic check-ins</h4>
+                    </div>
+                    <div class="coaching-item">
+                        <h4>Performance review support</h4>
+                    </div>
+                    <div class="coaching-item">
+                        <h4>Q&A and troubleshooting</h4>
                     </div>
                 </div>
-                <a href="#customer-stories" class="testimonial-cta">See more transformation stories →</a>
             </div>
         </div>
     </section>
 
-    <!-- Different by Design Section -->
-    <section class="different-design">
+    <!-- Who This Is For Section -->
+    <section class="who-for">
         <div class="container">
-            <h2>Different by design</h2>
-            <p class="tagline">We're not just selling features. We're invested in your success.</p>
-            <p>Traditional software vendors charge you for access and move on. Ailo is built differently. We combine world-class technology with expert coaching and a pricing model that grows with you. When your agency thrives, we thrive. That's not just a tagline—it's how we've structured our entire business model.</p>
+            <h2 class="section-title">Built for agencies who demand excellence</h2>
+            <div class="who-for-grid">
+                <div class="who-for-card">
+                    <p>Teams ready to eliminate multiple platforms and legacy systems</p>
+                </div>
+                <div class="who-for-card">
+                    <p>Agencies with tighter budgets who still demand excellence</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Placeholder Sections -->
-    <div id="product"></div>
-    <div id="coaching"></div>
-    <div id="the-plan"></div>
-    <div id="get-started"></div>
+    <!-- The Core Difference Section -->
+    <section class="core-difference">
+        <div class="container">
+            <div class="core-difference-content">
+                <h2>Complete from day one</h2>
+                <p class="main-statement">You get the complete system. No feature gates. No compromises on core functionality.</p>
+
+                <div class="not-included-box">
+                    <h4>What's not included (but available in higher tiers):</h4>
+                    <p>What you won't get: AI automation that works for you, AI agents that scale your business, and AI-powered insights that guide your strategy in real-time. That's what Accelerate and Partnership deliver.</p>
+                </div>
+
+                <a href="product-overview.html" class="compare-link">Compare all tiers →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Story Section -->
+    <section class="customer-story">
+        <div class="container">
+            <h2 class="section-title">Core in action</h2>
+            <div class="story-card">
+                <p class="story-quote">"We switched to Ailo Core and finally got off the legacy platform merry-go-round. Everything we need is in one place, and the coaching helped us optimize workflows we didn't even know were broken. Our team is happier, our landlords are happier, and we're running an award-winning agency on a budget that makes sense."</p>
+                <div class="story-attribution">
+                    <div class="story-avatar">SM</div>
+                    <div class="story-author">
+                        <div class="story-name">Sarah Mitchell</div>
+                        <div class="story-company">Principal, Coastal Properties</div>
+                        <div class="story-portfolio">300 properties</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing CTA Section -->
+    <section class="pricing-cta">
+        <div class="container">
+            <h2>Ready to start with Core?</h2>
+            <div class="price">$4.50 per property/month</div>
+            <p class="subtext">Everything included. No hidden fees. Cancel anytime.</p>
+            <div class="pricing-cta-buttons">
+                <a href="#get-started" class="btn-primary">Start with Core</a>
+                <a href="product-overview.html" class="btn-secondary">Compare Tiers</a>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -851,16 +991,16 @@
                     <h4>Product</h4>
                     <ul>
                         <li><a href="product-overview.html">Overview</a></li>
-                        <li><a href="#core">Core</a></li>
-                        <li><a href="#accelerate">Accelerate</a></li>
+                        <li><a href="product-core.html">Core</a></li>
+                        <li><a href="product-accelerate.html">Accelerate</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
                     <h4>Learn</h4>
                     <ul>
                         <li><a href="#coaching">Coaching</a></li>
-                        <li><a href="#customer-stories">Customer Stories</a></li>
-                        <li><a href="#vision">Vision</a></li>
+                        <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                        <li><a href="index.html#vision">Vision</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -920,23 +1060,6 @@
         document.querySelectorAll('.nav-menu a:not(.dropdown > a)').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
-            });
-        });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    const offsetTop = target.offsetTop - 80;
-
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
             });
         });
     </script>

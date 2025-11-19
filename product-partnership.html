@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ailo Partnership - Success-Based Property Management</title>
+    <style>
+        :root {
+            /* Ailo Brand Colors - from ailo.io */
+            --sky-blue: #EAF1FB;
+            --cloud-gray: #F7F7F7;
+            --pink-accent: #FDEDF1;
+            --white: #FFFFFF;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #64748b;
+            --primary-action: rgb(238, 11, 79);
+
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 40px;
+            --spacing-xl: 60px;
+            --spacing-2xl: 80px;
+            --spacing-3xl: 120px;
+
+            /* Shadows - minimal and clean */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 12px rgba(0, 0, 0, 0.06);
+
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            z-index: 1000;
+            transition: box-shadow 0.2s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.65;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: transparent;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            transition: background 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--sky-blue);
+            opacity: 1;
+        }
+
+        .dropdown-content a.active {
+            background: var(--sky-blue);
+            color: var(--primary-action);
+        }
+
+        .nav-cta {
+            background: var(--primary-action);
+            color: var(--white) !important;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9 !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: calc(var(--spacing-3xl) + 60px) var(--spacing-lg) var(--spacing-2xl);
+            background: var(--sky-blue);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 56px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto var(--spacing-lg);
+            line-height: 1.5;
+        }
+
+        .hero-price {
+            font-size: clamp(32px, 4vw, 40px);
+            font-weight: 700;
+            color: var(--primary-action);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-action);
+            color: var(--white);
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            border: 2px solid var(--text-dark);
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.7;
+        }
+
+        /* Sections */
+        section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xl);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* Accelerate Reminder */
+        .accelerate-reminder {
+            background: var(--cloud-gray);
+            text-align: center;
+        }
+
+        .accelerate-reminder p {
+            font-size: 18px;
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto var(--spacing-md);
+            line-height: 1.6;
+        }
+
+        .accelerate-reminder a {
+            color: var(--primary-action);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .accelerate-reminder a:hover {
+            opacity: 0.7;
+        }
+
+        /* Partnership Benefits */
+        .benefits {
+            background: var(--white);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .benefit-card {
+            background: var(--pink-accent);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+        }
+
+        .benefit-card:nth-child(2) {
+            background: var(--sky-blue);
+        }
+
+        .benefit-card:nth-child(3) {
+            background: var(--cloud-gray);
+        }
+
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .benefit-card h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .benefit-card ul {
+            list-style: none;
+        }
+
+        .benefit-card li {
+            font-size: 15px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-sm);
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .benefit-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+        }
+
+        .benefit-card .example {
+            background: rgba(255, 255, 255, 0.6);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-md);
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        /* Who For */
+        .who-for {
+            background: var(--cloud-gray);
+        }
+
+        .who-for-list {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+        }
+
+        .who-for-list ul {
+            list-style: none;
+        }
+
+        .who-for-list li {
+            font-size: 18px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-md);
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .who-for-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        /* Differentiators */
+        .differentiators {
+            background: var(--white);
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .diff-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+        }
+
+        .diff-icon {
+            font-size: 40px;
+            margin-bottom: var(--spacing-sm);
+            display: block;
+        }
+
+        .diff-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-dark);
+        }
+
+        .diff-card p {
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        /* Process */
+        .process {
+            background: var(--sky-blue);
+        }
+
+        .process-steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        .process-step {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: start;
+            gap: var(--spacing-md);
+        }
+
+        .step-number {
+            background: var(--primary-action);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-dark);
+        }
+
+        .step-content p {
+            font-size: 15px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Why Success-Based */
+        .why-success {
+            background: var(--cloud-gray);
+            text-align: center;
+        }
+
+        .why-success-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .why-success .main-statement {
+            font-size: clamp(20px, 3vw, 26px);
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .why-success .supporting-text {
+            font-size: clamp(16px, 2vw, 18px);
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        /* Customer Story */
+        .customer-story {
+            background: var(--white);
+        }
+
+        .story-card {
+            background: var(--pink-accent);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-transformation {
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-action);
+        }
+
+        .story-quote {
+            font-size: clamp(20px, 3vw, 28px);
+            line-height: 1.5;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 500;
+        }
+
+        .story-attribution {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-action);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .story-author {
+            flex: 1;
+        }
+
+        .story-name {
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--text-dark);
+        }
+
+        .story-company {
+            color: var(--text-medium);
+            font-size: 15px;
+        }
+
+        /* Application CTA */
+        .application-cta {
+            background: var(--cloud-gray);
+            text-align: center;
+        }
+
+        .application-cta h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .application-cta .subheadline {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 600;
+        }
+
+        .key-points {
+            max-width: 700px;
+            margin: 0 auto var(--spacing-xl);
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+        }
+
+        .key-points ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .key-points li {
+            font-size: 16px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-md);
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .key-points li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .application-cta-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-lg);
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .footer-links h4 {
+            font-size: 13px;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            transition: opacity 0.2s ease;
+            font-size: 15px;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            opacity: 1;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: background 0.2s ease;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--shadow-md);
+                gap: var(--spacing-sm);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                padding-left: var(--spacing-md);
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diff-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons,
+            .application-cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            section {
+                padding: var(--spacing-2xl) var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Vector.png" alt="Ailo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="product-overview.html" class="active">Product</a>
+                    <div class="dropdown-content">
+                        <a href="product-overview.html">Overview</a>
+                        <a href="product-core.html">Core</a>
+                        <a href="product-accelerate.html">Accelerate</a>
+                        <a href="product-partnership.html" class="active">Partnership</a>
+                    </div>
+                </li>
+                <li><a href="#coaching">Coaching</a></li>
+                <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                <li><a href="index.html#vision">Vision</a></li>
+                <li><a href="#the-plan">The Plan</a></li>
+                <li><a href="#get-started" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>When you win, we win</h1>
+            <p>Everything in Accelerate plus unlimited coaching, unlimited AI agents, and pricing based entirely on your success. True partnership means aligned incentives—no base fee, only shared outcomes.</p>
+            <div class="hero-price">Success-based pricing. No base fee.</div>
+            <div class="hero-buttons">
+                <a href="#apply" class="btn-primary">Apply for Partnership</a>
+                <a href="#contact" class="btn-secondary">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accelerate Reminder -->
+    <section class="accelerate-reminder">
+        <div class="container">
+            <p>You get everything in Ailo Accelerate—the complete platform, all AI features, up to 2 AI agents, and 10 hours of dedicated coaching per month.</p>
+            <a href="product-accelerate.html">See what's in Accelerate →</a>
+        </div>
+    </section>
+
+    <!-- Partnership Benefits -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">True partnership, unlimited potential</h2>
+            <div class="benefits-grid">
+                <!-- Unlimited AI Agents -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">∞</span>
+                    <h3>Unlimited AI Agents</h3>
+                    <ul>
+                        <li>Deploy as many AI agents as your business needs</li>
+                        <li>Agents scale with your portfolio and priorities</li>
+                        <li>No limits on automation—AI works across your entire operation</li>
+                    </ul>
+                    <div class="example">
+                        <strong>Example multi-agent deployment:</strong> 5+ agents handling all lease renewals, arrears, maintenance coordination, lead nurturing, and inspection scheduling simultaneously. Scale your agent deployment as you grow and add new agents as you identify new opportunities.
+                    </div>
+                </div>
+
+                <!-- Unlimited Coaching -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">🤝</span>
+                    <h3>Unlimited Dedicated Coaching</h3>
+                    <ul>
+                        <li>Ongoing strategic partnership, not just support</li>
+                        <li>Weekly or bi-weekly strategy sessions</li>
+                        <li>Business planning and goal setting</li>
+                        <li>Market positioning and competitive strategy</li>
+                        <li>Team structure optimization</li>
+                        <li>Expansion and growth planning</li>
+                        <li>Direct access to Ailo's business transformation experts</li>
+                        <li>Your success is our success—we're invested in your outcomes</li>
+                    </ul>
+                </div>
+
+                <!-- Success-Based Pricing -->
+                <div class="benefit-card">
+                    <span class="benefit-icon">📊</span>
+                    <h3>Success-Based Pricing</h3>
+                    <ul>
+                        <li>Zero base fee—you only pay when you succeed</li>
+                        <li>Pricing tied to portfolio growth (properties under management)</li>
+                        <li>Revenue growth (management fees earned)</li>
+                        <li>Operational efficiency gains (properties per PM ratio)</li>
+                        <li>Customer satisfaction improvements</li>
+                        <li>Transparent, agreed-upon formulas</li>
+                        <li>We grow when you grow—true partnership</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who This Is For -->
+    <section class="who-for">
+        <div class="container">
+            <h2 class="section-title">Built for transformation-ready agencies</h2>
+            <div class="who-for-list">
+                <ul>
+                    <li>Transformation-ready agencies committed to significant growth</li>
+                    <li>Businesses ready to fundamentally rethink how they operate</li>
+                    <li>Teams who see technology and coaching as strategic advantages</li>
+                    <li>Principals ready to invest in partnership, not just purchase software</li>
+                    <li>Agencies ambitious enough to compete for this exclusive tier</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiators -->
+    <section class="differentiators">
+        <div class="container">
+            <h2 class="section-title">More than software. A strategic relationship.</h2>
+            <div class="diff-grid">
+                <div class="diff-card">
+                    <span class="diff-icon">💎</span>
+                    <h4>No base fee</h4>
+                    <p>We only succeed when you do</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">👥</span>
+                    <h4>Dedicated account team</h4>
+                    <p>We know your business intimately</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">📈</span>
+                    <h4>Quarterly business reviews</h4>
+                    <p>Strategic planning and performance analysis</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">⚡</span>
+                    <h4>Priority access</h4>
+                    <p>New features and beta programs first</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">📊</span>
+                    <h4>Industry benchmarking</h4>
+                    <p>Competitive intelligence and insights</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">🌟</span>
+                    <h4>Exclusive peer network</h4>
+                    <p>Connect with other Partnership agencies</p>
+                </div>
+                <div class="diff-card">
+                    <span class="diff-icon">✨</span>
+                    <h4>Elite group</h4>
+                    <p>You're joining agencies building the future</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process -->
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">How Partnership works</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Partnership Application</h4>
+                        <p>Submit your application and initial strategy consultation</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Deep Discovery</h4>
+                        <p>Understand your goals, challenges, and definition of success</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Custom Partnership Agreement</h4>
+                        <p>Pricing structure tailored to your metrics and outcomes</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Deployment Planning</h4>
+                        <p>Agent strategy and implementation roadmap</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Ongoing Partnership</h4>
+                        <p>Weekly/bi-weekly coaching, quarterly reviews, unlimited support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Success-Based -->
+    <section class="why-success">
+        <div class="container">
+            <h2 class="section-title">We bet on your success</h2>
+            <div class="why-success-content">
+                <p class="main-statement">We're confident enough in our platform and partnership that we're willing to bet on your success. No monthly fees. No per-property charges. Just shared outcomes.</p>
+                <p class="supporting-text">This tier exists because we believe the best agencies deserve a partner who's truly invested in their growth—financially and strategically. When you grow, we grow. When you succeed, we succeed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Story -->
+    <section class="customer-story">
+        <div class="container">
+            <h2 class="section-title">Partnership in action</h2>
+            <div class="story-card">
+                <div class="story-transformation">600 → 1,200 properties in 18 months</div>
+                <p class="story-quote">"Partnership changed everything. With unlimited agents and unlimited coaching, we had no ceiling on growth. And knowing Ailo only makes money when we do? That's real partnership. We're not just clients—we're building the future of property management together."</p>
+                <div class="story-attribution">
+                    <div class="story-avatar">RT</div>
+                    <div class="story-author">
+                        <div class="story-name">Rebecca Torres</div>
+                        <div class="story-company">Founder & CEO, Premier Property Group</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application CTA -->
+    <section class="application-cta" id="apply">
+        <div class="container">
+            <h2>Ready to apply for Partnership?</h2>
+            <p class="subheadline">Join the elite group of agencies transforming property management</p>
+
+            <div class="key-points">
+                <ul>
+                    <li>No base fee—success-based pricing only</li>
+                    <li>Unlimited AI agents and coaching</li>
+                    <li>Strategic partnership with dedicated team</li>
+                    <li>Exclusive peer network and priority access</li>
+                </ul>
+            </div>
+
+            <div class="application-cta-buttons">
+                <a href="#contact" class="btn-primary">Apply for Partnership</a>
+                <a href="#contact" class="btn-secondary">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Ailo</div>
+                    <p class="footer-tagline">Building winning agencies together</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="product-overview.html">Overview</a></li>
+                        <li><a href="product-core.html">Core</a></li>
+                        <li><a href="product-accelerate.html">Accelerate</a></li>
+                        <li><a href="product-partnership.html">Partnership</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Learn</h4>
+                    <ul>
+                        <li><a href="#coaching">Coaching</a></li>
+                        <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                        <li><a href="index.html#vision">Vision</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#the-plan">The Plan</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <span class="footer-copyright">© 2025 Ailo. All rights reserved.</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    link.parentElement.classList.toggle('active');
+                }
+            });
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-menu a:not(.dropdown > a)').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

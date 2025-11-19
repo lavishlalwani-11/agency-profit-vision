@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Overview - Ailo</title>
+    <style>
+        :root {
+            /* Ailo Brand Colors - from ailo.io */
+            --sky-blue: #EAF1FB;
+            --cloud-gray: #F7F7F7;
+            --pink-accent: #FDEDF1;
+            --white: #FFFFFF;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #64748b;
+            --primary-action: rgb(238, 11, 79);
+
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 40px;
+            --spacing-xl: 60px;
+            --spacing-2xl: 80px;
+            --spacing-3xl: 120px;
+
+            /* Shadows - minimal and clean */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 12px rgba(0, 0, 0, 0.06);
+
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            z-index: 1000;
+            transition: box-shadow 0.2s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.65;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: transparent;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            transition: background 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--sky-blue);
+            opacity: 1;
+        }
+
+        .dropdown-content a.active {
+            background: var(--sky-blue);
+            color: var(--primary-action);
+        }
+
+        .nav-cta {
+            background: var(--primary-action);
+            color: var(--white) !important;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9 !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: calc(var(--spacing-3xl) + 60px) var(--spacing-lg) var(--spacing-2xl);
+            background: var(--sky-blue);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 56px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        /* Sections */
+        section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xl);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* Tier Cards */
+        .tiers {
+            background: var(--white);
+            padding-top: var(--spacing-2xl);
+        }
+
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .tier-card {
+            background: var(--white);
+            border: 2px solid var(--cloud-gray);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-action);
+        }
+
+        .tier-card h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .tier-tagline {
+            font-size: 16px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-md);
+            font-weight: 600;
+        }
+
+        .tier-description {
+            font-size: 15px;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-lg);
+            flex-grow: 1;
+        }
+
+        .tier-inclusions {
+            background: var(--sky-blue);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .tier-inclusions h4 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+            opacity: 0.7;
+        }
+
+        .tier-inclusions ul {
+            list-style: none;
+        }
+
+        .tier-inclusions li {
+            font-size: 15px;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xs);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tier-inclusions li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+        }
+
+        .tier-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tier-price-note {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: -8px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .tier-cta {
+            background: var(--primary-action);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .tier-cta:hover {
+            opacity: 0.9;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: var(--cloud-gray);
+        }
+
+        .comparison-table {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: var(--sky-blue);
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+
+        .comparison-table th:first-child {
+            width: 40%;
+        }
+
+        .comparison-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--cloud-gray);
+            font-size: 15px;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table .category-header {
+            background: var(--cloud-gray);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .comparison-table .check {
+            color: var(--primary-action);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .comparison-table .dash {
+            color: var(--text-light);
+            opacity: 0.5;
+        }
+
+        /* Why This Matters */
+        .why-matters {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .why-matters h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .why-matters p {
+            font-size: clamp(18px, 2.5vw, 22px);
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-medium);
+        }
+
+        /* Next Steps */
+        .next-steps {
+            background: var(--pink-accent);
+            text-align: center;
+        }
+
+        .next-steps h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xl);
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .next-steps-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .next-steps-buttons a {
+            background: var(--primary-action);
+            color: var(--white);
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            display: inline-block;
+        }
+
+        .next-steps-buttons a:hover {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-lg);
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .footer-links h4 {
+            font-size: 13px;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            transition: opacity 0.2s ease;
+            font-size: 15px;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            opacity: 1;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: background 0.2s ease;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--shadow-md);
+                gap: var(--spacing-sm);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                padding-left: var(--spacing-md);
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                overflow-x: auto;
+            }
+
+            .comparison-table table {
+                min-width: 600px;
+            }
+
+            .next-steps-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .next-steps-buttons a {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            section {
+                padding: var(--spacing-2xl) var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Vector.png" alt="Ailo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="product-overview.html" class="active">Product</a>
+                    <div class="dropdown-content">
+                        <a href="product-overview.html" class="active">Overview</a>
+                        <a href="product-core.html">Core</a>
+                        <a href="product-accelerate.html">Accelerate</a>
+                        <a href="product-partnership.html">Partnership</a>
+                    </div>
+                </li>
+                <li><a href="#coaching">Coaching</a></li>
+                <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                <li><a href="index.html#vision">Vision</a></li>
+                <li><a href="#the-plan">The Plan</a></li>
+                <li><a href="#get-started" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>One Platform. Three Ways to Win.</h1>
+            <p>Choose the level of partnership that matches your ambition. From foundational operations to complete business transformation.</p>
+        </div>
+    </section>
+
+    <!-- Three Tiers Section -->
+    <section class="tiers">
+        <div class="container">
+            <div class="tiers-grid">
+                <!-- Ailo Core -->
+                <div class="tier-card">
+                    <h3>Ailo Core</h3>
+                    <p class="tier-tagline">The complete property management system</p>
+                    <p class="tier-description">Everything in one platform. Manage money, communication, compliance, inspections, leasing, and workflows seamlessly. No legacy tech, no disconnected apps—just one powerful system with dedicated coaching to help you succeed.</p>
+
+                    <div class="tier-inclusions">
+                        <h4>Key Inclusions</h4>
+                        <ul>
+                            <li>Up to 10 hours dedicated coaching per month</li>
+                            <li>Complete platform with all essential features</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier-price">$4.50<span style="font-size: 18px; font-weight: 500; color: var(--text-medium);">/property/month</span></div>
+
+                    <a href="product-core.html" class="tier-cta">Learn More →</a>
+                </div>
+
+                <!-- Ailo Accelerate -->
+                <div class="tier-card">
+                    <h3>Ailo Accelerate</h3>
+                    <p class="tier-tagline">AI-powered acceleration for your agency</p>
+                    <p class="tier-description">Everything in Core plus AI that does the heavy lifting. Automated inspection reports, instant customer sentiment analysis, smart bill processing, and intelligent insights that help you move faster and perform better.</p>
+
+                    <div class="tier-inclusions">
+                        <h4>Key Inclusions</h4>
+                        <ul>
+                            <li>Up to 10 hours dedicated coaching per month</li>
+                            <li>Up to 2 AI agents</li>
+                            <li>AI automation and intelligence</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier-price">$7.00<span style="font-size: 18px; font-weight: 500; color: var(--text-medium);">/property/month</span></div>
+
+                    <a href="product-accelerate.html" class="tier-cta">Learn More →</a>
+                </div>
+
+                <!-- Ailo Partnership -->
+                <div class="tier-card">
+                    <h3>Ailo Partnership</h3>
+                    <p class="tier-tagline">Success-based, outcome-aligned</p>
+                    <p class="tier-description">Everything in Accelerate plus unlimited coaching, unlimited AI agents, and pricing based entirely on your success. We win when you win.</p>
+
+                    <div class="tier-inclusions">
+                        <h4>Key Inclusions</h4>
+                        <ul>
+                            <li>Unlimited dedicated coaching</li>
+                            <li>Unlimited AI agents</li>
+                            <li>Zero base fee</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier-price">Success-based pricing</div>
+                    <p class="tier-price-note">Aligned with your growth outcomes</p>
+
+                    <a href="product-partnership.html" class="tier-cta">Apply for Partnership →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table Section -->
+    <section class="comparison">
+        <div class="container">
+            <h2 class="section-title">What's included in each tier</h2>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Core</th>
+                            <th>Accelerate</th>
+                            <th>Partnership</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="category-header">
+                            <td colspan="4">Platform Features</td>
+                        </tr>
+                        <tr>
+                            <td>Money & Payments</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Communication Hub</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Compliance & Inspections</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Leasing & Tenant Management</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Growth & Lead Management</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Projects</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Advanced Analytics & Reporting</td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+
+                        <tr class="category-header">
+                            <td colspan="4">AI & Automation</td>
+                        </tr>
+                        <tr>
+                            <td>AI-Powered Automation</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI Mode (Conversational Interface)</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI Customer Intelligence</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI Team Coaching</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>AI Insights & Guidance</td>
+                            <td><span class="dash">—</span></td>
+                            <td><span class="check">✓</span></td>
+                            <td><span class="check">✓</span></td>
+                        </tr>
+
+                        <tr class="category-header">
+                            <td colspan="4">AI Agents</td>
+                        </tr>
+                        <tr>
+                            <td>AI Agent Deployment</td>
+                            <td><span class="dash">—</span></td>
+                            <td>Up to 2</td>
+                            <td>Unlimited</td>
+                        </tr>
+
+                        <tr class="category-header">
+                            <td colspan="4">Dedicated Coaching</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly Coaching Hours</td>
+                            <td>Up to 10 hours</td>
+                            <td>Up to 10 hours</td>
+                            <td>Unlimited</td>
+                        </tr>
+
+                        <tr class="category-header">
+                            <td colspan="4">Pricing Model</td>
+                        </tr>
+                        <tr>
+                            <td>Pricing Structure</td>
+                            <td>$4.50/property</td>
+                            <td>$7.00/property</td>
+                            <td>Success-based, no base fee</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why This Matters Section -->
+    <section class="why-matters">
+        <div class="container">
+            <h2>Most software vendors sell features. We offer partnership.</h2>
+            <p>Choose the level of partnership that matches where you are and where you want to go. Every tier includes the complete platform and dedicated coaching—because we believe true partnership starts from day one.</p>
+        </div>
+    </section>
+
+    <!-- Next Steps Section -->
+    <section class="next-steps">
+        <div class="container">
+            <h2>Ready to choose your path?</h2>
+            <div class="next-steps-buttons">
+                <a href="product-core.html">Explore Core →</a>
+                <a href="product-accelerate.html">Explore Accelerate →</a>
+                <a href="product-partnership.html">Apply for Partnership →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Ailo</div>
+                    <p class="footer-tagline">Building winning agencies together</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="product-overview.html">Overview</a></li>
+                        <li><a href="product-core.html">Core</a></li>
+                        <li><a href="product-accelerate.html">Accelerate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Learn</h4>
+                    <ul>
+                        <li><a href="#coaching">Coaching</a></li>
+                        <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                        <li><a href="index.html#vision">Vision</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#the-plan">The Plan</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <span class="footer-copyright">© 2025 Ailo. All rights reserved.</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    link.parentElement.classList.toggle('active');
+                }
+            });
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-menu a:not(.dropdown > a)').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

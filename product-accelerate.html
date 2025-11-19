@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ailo Accelerate - AI-Powered Property Management</title>
+    <style>
+        :root {
+            /* Ailo Brand Colors - from ailo.io */
+            --sky-blue: #EAF1FB;
+            --cloud-gray: #F7F7F7;
+            --pink-accent: #FDEDF1;
+            --white: #FFFFFF;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #64748b;
+            --primary-action: rgb(238, 11, 79);
+
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 40px;
+            --spacing-xl: 60px;
+            --spacing-2xl: 80px;
+            --spacing-3xl: 120px;
+
+            /* Shadows - minimal and clean */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 12px rgba(0, 0, 0, 0.06);
+
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            z-index: 1000;
+            transition: box-shadow 0.2s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.65;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: transparent;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            transition: background 0.2s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--sky-blue);
+            opacity: 1;
+        }
+
+        .dropdown-content a.active {
+            background: var(--sky-blue);
+            color: var(--primary-action);
+        }
+
+        .nav-cta {
+            background: var(--primary-action);
+            color: var(--white) !important;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9 !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: calc(var(--spacing-3xl) + 60px) var(--spacing-lg) var(--spacing-2xl);
+            background: var(--sky-blue);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 56px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto var(--spacing-lg);
+            line-height: 1.5;
+        }
+
+        .hero-price {
+            font-size: clamp(32px, 4vw, 40px);
+            font-weight: 700;
+            color: var(--primary-action);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-action);
+            color: var(--white);
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            border: 2px solid var(--text-dark);
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.7;
+        }
+
+        /* Sections */
+        section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-xl);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* Core Reminder */
+        .core-reminder {
+            background: var(--cloud-gray);
+            text-align: center;
+        }
+
+        .core-reminder p {
+            font-size: 18px;
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto var(--spacing-md);
+            line-height: 1.6;
+        }
+
+        .core-reminder a {
+            color: var(--primary-action);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .core-reminder a:hover {
+            opacity: 0.7;
+        }
+
+        /* AI Features */
+        .ai-features {
+            background: var(--white);
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .ai-feature-card {
+            background: var(--sky-blue);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+        }
+
+        .ai-feature-card:nth-child(2) {
+            background: var(--pink-accent);
+        }
+
+        .ai-feature-card:nth-child(3) {
+            background: var(--cloud-gray);
+        }
+
+        .ai-feature-card:nth-child(4) {
+            background: var(--sky-blue);
+        }
+
+        .ai-feature-card:nth-child(5) {
+            background: var(--pink-accent);
+        }
+
+        .ai-icon {
+            font-size: 40px;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .ai-feature-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .ai-feature-card ul {
+            list-style: none;
+        }
+
+        .ai-feature-card li {
+            font-size: 15px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-sm);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .ai-feature-card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+        }
+
+        .ai-feature-card .example {
+            background: rgba(255, 255, 255, 0.5);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-md);
+            font-size: 14px;
+            font-style: italic;
+            color: var(--text-medium);
+        }
+
+        /* AI Agents */
+        .ai-agents {
+            background: var(--cloud-gray);
+        }
+
+        .ai-agents .subheadline {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            font-weight: 600;
+        }
+
+        .ai-agents-intro {
+            font-size: 16px;
+            color: var(--text-medium);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-xl);
+            line-height: 1.6;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .agent-card {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .agent-card:hover {
+            border-color: var(--primary-action);
+            transform: translateY(-4px);
+        }
+
+        .agent-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .agent-card p {
+            font-size: 15px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Coaching */
+        .coaching {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .coaching .subheadline {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+            font-weight: 600;
+        }
+
+        .coaching-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--sky-blue);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+        }
+
+        .coaching-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .coaching-content ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .coaching-content li {
+            font-size: 15px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-sm);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .coaching-content li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+        }
+
+        /* Who For */
+        .who-for {
+            background: var(--cloud-gray);
+        }
+
+        .who-for-list {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+        }
+
+        .who-for-list ul {
+            list-style: none;
+        }
+
+        .who-for-list li {
+            font-size: 18px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-md);
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .who-for-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        /* Advantage */
+        .advantage {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .advantage-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .advantage p {
+            font-size: clamp(18px, 2.5vw, 22px);
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        /* ROI */
+        .roi {
+            background: var(--pink-accent);
+        }
+
+        .roi-calc {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+        }
+
+        .roi-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--cloud-gray);
+        }
+
+        .roi-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .roi-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            font-size: 16px;
+        }
+
+        .roi-row.highlight {
+            background: var(--sky-blue);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin: var(--spacing-md) 0;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .roi-benefits {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 2px solid var(--cloud-gray);
+        }
+
+        .roi-benefits h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .roi-benefits ul {
+            list-style: none;
+        }
+
+        .roi-benefits li {
+            font-size: 15px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-sm);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .roi-benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+        }
+
+        /* Customer Story */
+        .customer-story {
+            background: var(--cloud-gray);
+        }
+
+        .story-card {
+            background: var(--white);
+            padding: var(--spacing-xl) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-growth {
+            background: var(--sky-blue);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-action);
+        }
+
+        .story-quote {
+            font-size: clamp(20px, 3vw, 28px);
+            line-height: 1.5;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-lg);
+            font-weight: 500;
+        }
+
+        .story-attribution {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .story-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-action);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .story-author {
+            flex: 1;
+        }
+
+        .story-name {
+            font-weight: 700;
+            font-size: 17px;
+            color: var(--text-dark);
+        }
+
+        .story-company {
+            color: var(--text-medium);
+            font-size: 15px;
+        }
+
+        /* Pricing CTA */
+        .pricing-cta {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .pricing-cta h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .pricing-cta .price {
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--primary-action);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pricing-cta .subtext {
+            font-size: 16px;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pricing-cta-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: var(--spacing-xl) var(--spacing-lg) var(--spacing-lg);
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .footer-links h4 {
+            font-size: 13px;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            transition: opacity 0.2s ease;
+            font-size: 15px;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            opacity: 1;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: background 0.2s ease;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--shadow-md);
+                gap: var(--spacing-sm);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                padding-left: var(--spacing-md);
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .ai-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons,
+            .pricing-cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            section {
+                padding: var(--spacing-2xl) var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Vector.png" alt="Ailo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="product-overview.html" class="active">Product</a>
+                    <div class="dropdown-content">
+                        <a href="product-overview.html">Overview</a>
+                        <a href="product-core.html">Core</a>
+                        <a href="product-accelerate.html" class="active">Accelerate</a>
+                        <a href="product-partnership.html">Partnership</a>
+                    </div>
+                </li>
+                <li><a href="#coaching">Coaching</a></li>
+                <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                <li><a href="index.html#vision">Vision</a></li>
+                <li><a href="#the-plan">The Plan</a></li>
+                <li><a href="#get-started" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Move faster. Perform better. Scale smarter.</h1>
+            <p>Everything in Core plus AI that does the heavy lifting. Automated workflows, intelligent insights, and up to 2 AI agents working alongside your team.</p>
+            <div class="hero-price">$7.00 per property/month</div>
+            <div class="hero-buttons">
+                <a href="#get-started" class="btn-primary">Upgrade to Accelerate</a>
+                <a href="#contact" class="btn-secondary">Book a Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Reminder -->
+    <section class="core-reminder">
+        <div class="container">
+            <p>You get everything in Ailo Core—the complete property management platform with all features and 10 hours of dedicated coaching per month.</p>
+            <a href="product-core.html">See what's in Core →</a>
+        </div>
+    </section>
+
+    <!-- AI Features -->
+    <section class="ai-features">
+        <div class="container">
+            <h2 class="section-title">AI that works for you</h2>
+            <div class="ai-grid">
+                <!-- AI-Powered Automation -->
+                <div class="ai-feature-card">
+                    <span class="ai-icon">🤖</span>
+                    <h3>AI-Powered Automation</h3>
+                    <ul>
+                        <li>Automated inspection report writing</li>
+                        <li>Smart bill processing and auto-filling</li>
+                        <li>Intelligent email responses and drafting</li>
+                    </ul>
+                </div>
+
+                <!-- AI Mode -->
+                <div class="ai-feature-card">
+                    <span class="ai-icon">💬</span>
+                    <h3>AI Mode</h3>
+                    <ul>
+                        <li>Interact with the platform through natural conversation</li>
+                        <li>Ask AI to perform actions instantly</li>
+                        <li>Voice or text commands to navigate and execute tasks</li>
+                        <li>Work faster without clicking through menus</li>
+                    </ul>
+                    <div class="example">
+                        "Show me properties with overdue rent" → instant results<br>
+                        "Schedule inspections for all properties due next month" → done
+                    </div>
+                </div>
+
+                <!-- AI Customer Intelligence -->
+                <div class="ai-feature-card">
+                    <span class="ai-icon">🧠</span>
+                    <h3>AI Customer Intelligence</h3>
+                    <ul>
+                        <li>Real-time customer sentiment analysis</li>
+                        <li>Communication quality scoring</li>
+                        <li>Call transcription and analysis</li>
+                        <li>At-risk owner identification</li>
+                        <li>Tenant satisfaction tracking</li>
+                        <li>Proactive issue detection</li>
+                    </ul>
+                </div>
+
+                <!-- AI Team Coaching -->
+                <div class="ai-feature-card">
+                    <span class="ai-icon">👥</span>
+                    <h3>AI Team Coaching</h3>
+                    <ul>
+                        <li>Real-time performance tracking for each team member</li>
+                        <li>Personalized coaching recommendations</li>
+                        <li>Instant feedback on communication quality</li>
+                        <li>Individual growth path identification</li>
+                        <li>Performance gap alerts and improvement suggestions</li>
+                        <li>Recognition of wins and positive patterns</li>
+                        <li>Benchmarking against team and industry standards</li>
+                    </ul>
+                </div>
+
+                <!-- AI Insights & Guidance -->
+                <div class="ai-feature-card">
+                    <span class="ai-icon">📊</span>
+                    <h3>AI Insights & Guidance</h3>
+                    <ul>
+                        <li>Performance recommendations pushed in real-time</li>
+                        <li>Portfolio optimization suggestions</li>
+                        <li>Revenue opportunity identification</li>
+                        <li>Risk alerts and early warnings</li>
+                        <li>Predictive analytics for arrears and vacancies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Agents -->
+    <section class="ai-agents">
+        <div class="container">
+            <h2 class="section-title">Up to 2 AI agents deployed for you</h2>
+            <p class="subheadline">Choose the agents that match your business priorities</p>
+            <p class="ai-agents-intro">AI agents work autonomously to handle entire workflows from start to finish. Deploy up to 2 agents to scale your operations and free your team to focus on relationships and strategy.</p>
+
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <h4>Lease Renewal Agent</h4>
+                    <p>Manages entire renewal process from initial contact to signed lease</p>
+                </div>
+                <div class="agent-card">
+                    <h4>Arrears Management Agent</h4>
+                    <p>Proactive tenant communication and payment follow-up</p>
+                </div>
+                <div class="agent-card">
+                    <h4>Lead Nurture Agent</h4>
+                    <p>Follows up with prospective landlords and moves them through your pipeline</p>
+                </div>
+                <div class="agent-card">
+                    <h4>Inspection Scheduling Agent</h4>
+                    <p>Coordinates inspections automatically with tenants and property managers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coaching -->
+    <section class="coaching">
+        <div class="container">
+            <h2 class="section-title">Up to 10 hours per month of dedicated coaching</h2>
+            <p class="subheadline">Everything in Core, plus AI expertise</p>
+
+            <div class="coaching-content">
+                <h4>What coaching covers:</h4>
+                <ul>
+                    <li>Everything in Core coaching, plus:</li>
+                    <li>AI agent deployment strategy</li>
+                    <li>Interpreting AI insights</li>
+                    <li>Optimizing automated workflows</li>
+                    <li>Performance improvement planning</li>
+                    <li>Team development with AI coaching tools</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who This Is For -->
+    <section class="who-for">
+        <div class="container">
+            <h2 class="section-title">Built for agencies ready to scale</h2>
+            <div class="who-for-list">
+                <ul>
+                    <li>Agencies ready to scale without proportionally adding headcount</li>
+                    <li>Teams who want AI working for them, not just providing data</li>
+                    <li>Businesses focused on growth and revenue optimization</li>
+                    <li>Agencies who need to do more with the same resources</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantage -->
+    <section class="advantage">
+        <div class="container">
+            <h2 class="section-title">AI does the work, you lead the strategy</h2>
+            <div class="advantage-content">
+                <p>AI doesn't just give you information—it does the work. Talk to your platform, and it responds. Your team focuses on relationships and strategy while AI handles the repetitive, time-consuming tasks that slow you down. And with AI coaching, your team gets the real-time feedback they need to grow and feel confident every day.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI -->
+    <section class="roi">
+        <div class="container">
+            <h2 class="section-title">The investment that pays for itself</h2>
+            <div class="roi-calc">
+                <div class="roi-header">
+                    <h3>For a 500-property agency:</h3>
+                </div>
+                <div class="roi-row">
+                    <span>Core cost:</span>
+                    <span>$2,250/month</span>
+                </div>
+                <div class="roi-row">
+                    <span>Accelerate cost:</span>
+                    <span>$3,500/month</span>
+                </div>
+                <div class="roi-row highlight">
+                    <span>Additional investment:</span>
+                    <span>$1,250/month</span>
+                </div>
+
+                <div class="roi-benefits">
+                    <h4>What you get:</h4>
+                    <ul>
+                        <li>Time saved: 40+ hours/month across the team</li>
+                        <li>Equivalent to: Hiring 0.25 FTE at ~$84,000/year</li>
+                        <li>Plus: Revenue opportunities identified</li>
+                        <li>Faster response times</li>
+                        <li>Better customer satisfaction</li>
+                        <li>Reduced staff turnover</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Story -->
+    <section class="customer-story">
+        <div class="container">
+            <h2 class="section-title">Accelerate in action</h2>
+            <div class="story-card">
+                <div class="story-growth">300 → 450 properties in 12 months</div>
+                <p class="story-quote">"Accelerate gave us superpowers. Our AI agents handle lease renewals and arrears management autonomously, and the AI coaching helps every team member perform at their best. We're scaling fast without the burnout—and our team actually enjoys coming to work."</p>
+                <div class="story-attribution">
+                    <div class="story-avatar">JC</div>
+                    <div class="story-author">
+                        <div class="story-name">James Chen</div>
+                        <div class="story-company">Managing Director, Metro Property Partners</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing CTA -->
+    <section class="pricing-cta">
+        <div class="container">
+            <h2>Ready to accelerate?</h2>
+            <div class="price">$7.00 per property/month</div>
+            <p class="subtext">Everything in Core + AI automation + Up to 2 AI agents + 10 hours coaching</p>
+            <div class="pricing-cta-buttons">
+                <a href="#get-started" class="btn-primary">Upgrade to Accelerate</a>
+                <a href="product-overview.html" class="btn-secondary">Compare All Tiers</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Ailo</div>
+                    <p class="footer-tagline">Building winning agencies together</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="product-overview.html">Overview</a></li>
+                        <li><a href="product-core.html">Core</a></li>
+                        <li><a href="product-accelerate.html">Accelerate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Learn</h4>
+                    <ul>
+                        <li><a href="#coaching">Coaching</a></li>
+                        <li><a href="index.html#customer-stories">Customer Stories</a></li>
+                        <li><a href="index.html#vision">Vision</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#the-plan">The Plan</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <span class="footer-copyright">© 2025 Ailo. All rights reserved.</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    link.parentElement.classList.toggle('active');
+                }
+            });
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-menu a:not(.dropdown > a)').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
