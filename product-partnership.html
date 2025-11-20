@@ -20,10 +20,10 @@
             --spacing-xs: 8px;
             --spacing-sm: 16px;
             --spacing-md: 24px;
-            --spacing-lg: 40px;
-            --spacing-xl: 60px;
-            --spacing-2xl: 80px;
-            --spacing-3xl: 120px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
 
             /* Shadows - minimal and clean */
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
@@ -34,6 +34,7 @@
             --radius-sm: 6px;
             --radius-md: 8px;
             --radius-lg: 12px;
+            --radius-full: 9999px;
         }
 
         * {
@@ -56,13 +57,12 @@
 
         /* Navigation */
         nav {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
             z-index: 1000;
-            transition: box-shadow 0.2s ease;
+            transition: box-shadow 0.3s ease;
         }
 
         nav.scrolled {
@@ -70,7 +70,7 @@
         }
 
         .nav-container {
-            max-width: 1280px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: var(--spacing-md) var(--spacing-lg);
             display: flex;
@@ -104,8 +104,7 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
-            font-size: 15px;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.2s;
         }
 
         .nav-menu a:hover {
@@ -166,10 +165,9 @@
         .nav-cta {
             background: var(--primary-action);
             color: var(--white) !important;
-            padding: 12px 24px;
-            border-radius: var(--radius-md);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
             font-weight: 600;
-            transition: opacity 0.2s ease;
         }
 
         .nav-cta:hover {
@@ -187,14 +185,18 @@
 
         /* Hero Section */
         .hero {
-            padding: calc(var(--spacing-3xl) + 60px) var(--spacing-lg) var(--spacing-2xl);
+            padding: var(--spacing-3xl) var(--spacing-lg);
             background: var(--sky-blue);
             text-align: center;
+            display: flex;
+            align-items: center;
+            min-height: 400px;
         }
 
         .hero-content {
             max-width: 900px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .hero h1 {
@@ -838,7 +840,7 @@
             <button class="menu-toggle" aria-label="Toggle menu">☰</button>
             <ul class="nav-menu">
                 <li class="dropdown">
-                    <a href="product-overview.html" class="active">Product</a>
+                    <a href="product-overview.html" class="active">Platform</a>
                     <div class="dropdown-content">
                         <a href="product-overview.html">Overview</a>
                         <a href="product-core.html">Core</a>
@@ -856,7 +858,7 @@
                     </div>
                 </li>
                 <li><a href="customer-stories.html">Customer Stories</a></li>
-                <li><a href="index.html#vision">Vision</a></li>
+                
                 <li><a href="index.html#the-plan">The Plan</a></li>
                 <li><a href="#get-started" class="nav-cta">Get Started</a></li>
             </ul>
@@ -1101,7 +1103,7 @@
                     <p class="footer-tagline">Building winning agencies together</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Product</h4>
+                    <h4>Platform</h4>
                     <ul>
                         <li><a href="product-overview.html">Overview</a></li>
                         <li><a href="product-core.html">Core</a></li>
@@ -1114,7 +1116,7 @@
                     <ul>
                         <li><a href="#coaching">Coaching</a></li>
                         <li><a href="customer-stories.html">Customer Stories</a></li>
-                        <li><a href="index.html#vision">Vision</a></li>
+                        
                     </ul>
                 </div>
                 <div class="footer-links">
