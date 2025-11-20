@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Webinars - Ailo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors */
+            --white: #FFFFFF;
+            --black: #000000;
+            --sky-blue: #EAF1FB;
+            --cloud-gray: #F7F7F7;
+            --pink-accent: #FDEDF1;
+            --warm-purple: #F5F0FB;
+            --primary-action: rgb(238, 11, 79);
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --success-green: #10b981;
+            --info-blue: #3b82f6;
+            --warning-amber: #f59e0b;
+
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+
+            /* Shadows - softer for coaching pages */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
+
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.65;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: transparent;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--cloud-gray);
+            opacity: 1;
+        }
+
+        .dropdown-content a.active {
+            color: var(--primary-action);
+            background: var(--pink-accent);
+        }
+
+        .nav-cta {
+            background: var(--primary-action);
+            color: var(--white) !important;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9 !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--warm-purple) 0%, var(--sky-blue) 100%);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.1;
+        }
+
+        .hero-subheadline {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* Section Container */
+        .section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .section-alternate {
+            background: var(--cloud-gray);
+        }
+
+        .section-warm {
+            background: var(--warm-purple);
+        }
+
+        .section-sky {
+            background: var(--sky-blue);
+        }
+
+        .section-pink {
+            background: var(--pink-accent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-header p {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Event Cards */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .event-card {
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid var(--primary-action);
+        }
+
+        .event-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+        }
+
+        .event-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-md);
+            gap: var(--spacing-sm);
+        }
+
+        .event-badges {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            align-items: flex-end;
+        }
+
+        .event-badge {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .badge-workshop {
+            background: var(--info-blue);
+            color: var(--white);
+        }
+
+        .badge-webinar {
+            background: var(--success-green);
+            color: var(--white);
+        }
+
+        .badge-panel {
+            background: var(--warning-amber);
+            color: var(--white);
+        }
+
+        .badge-office-hours {
+            background: var(--warm-purple);
+            color: var(--text-primary);
+        }
+
+        .badge-recurring {
+            background: var(--pink-accent);
+            color: var(--primary-action);
+            border: 1px solid var(--primary-action);
+        }
+
+        .tier-badge {
+            background: var(--cloud-gray);
+            color: var(--text-secondary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .event-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.3;
+        }
+
+        .event-datetime {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--primary-action);
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.95rem;
+        }
+
+        .event-datetime::before {
+            content: '📅';
+            font-size: 1.125rem;
+        }
+
+        .event-host {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .event-duration {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .event-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .event-spots {
+            color: var(--success-green);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .event-cta {
+            background: var(--primary-action);
+            color: var(--white);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .event-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Event Types */
+        .event-types-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .event-type-block {
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .event-type-block:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .event-type-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .event-type-block h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .event-type-block ul {
+            list-style: none;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .event-type-block li {
+            margin-bottom: var(--spacing-xs);
+            padding-left: var(--spacing-sm);
+            position: relative;
+        }
+
+        .event-type-block li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+        }
+
+        /* Calendar Widget */
+        .calendar-widget {
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            max-width: 800px;
+            margin: var(--spacing-2xl) auto 0;
+        }
+
+        .calendar-widget h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .calendar-widget p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .calendar-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-action);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-primary);
+            border: 2px solid var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-primary);
+            color: var(--white);
+        }
+
+        /* Past Events */
+        .past-events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .past-event-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .past-event-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .past-event-thumbnail {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .past-event-content {
+            padding: var(--spacing-lg);
+        }
+
+        .past-event-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .past-event-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.3;
+        }
+
+        .past-event-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+        }
+
+        .past-event-duration {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .watch-cta {
+            color: var(--primary-action);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: opacity 0.2s;
+        }
+
+        .watch-cta:hover {
+            opacity: 0.7;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-quote {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            font-style: italic;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            padding-left: var(--spacing-lg);
+            border-left: 4px solid var(--primary-action);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .testimonial-meta h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .testimonial-meta p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .final-cta p {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: var(--white);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .footer-section h4 {
+            margin-bottom: var(--spacing-md);
+            font-size: 1.125rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: var(--spacing-xl) auto 0;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--shadow-md);
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu > li {
+                width: 100%;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: var(--spacing-sm);
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                padding-left: var(--spacing-md);
+                margin-top: var(--spacing-xs);
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-types-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .past-events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Vector.png" alt="Ailo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="product-overview.html">Product</a>
+                    <div class="dropdown-content">
+                        <a href="product-overview.html">Overview</a>
+                        <a href="product-core.html">Core</a>
+                        <a href="product-accelerate.html">Accelerate</a>
+                        <a href="product-partnership.html">Partnership</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="coaching-overview.html" class="active">Coaching</a>
+                    <div class="dropdown-content">
+                        <a href="coaching-overview.html">Overview</a>
+                        <a href="coaching-resources.html">Resource Centre</a>
+                        <a href="coaching-events.html" class="active">Events</a>
+                        <a href="coaching-community.html">Community</a>
+                    </div>
+                </li>
+                <li><a href="#customer-stories">Customer Stories</a></li>
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#the-plan">The Plan</a></li>
+                <li><a href="#get-started" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Learn together, grow together</h1>
+            <p class="hero-subheadline">Join live sessions with industry experts, Ailo coaches, and fellow agency leaders. Every event is a chance to learn something new and connect with your peers.</p>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Coming up soon</h2>
+                <p>Mark your calendar for these upcoming sessions</p>
+            </div>
+            <div class="events-grid">
+                <!-- Event 1 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3>Mastering AI Agents: A Live Workshop</h3>
+                        </div>
+                        <div class="event-badges">
+                            <span class="event-badge badge-workshop">Workshop</span>
+                            <span class="tier-badge">Accelerate & Partnership</span>
+                        </div>
+                    </div>
+                    <div class="event-datetime">Tuesday, March 15 • 2:00 PM AEDT</div>
+                    <div class="event-host">Host: Emily Rodriguez, AI Strategy Coach</div>
+                    <div class="event-duration">Duration: 90 minutes</div>
+                    <p class="event-description">Join Emily for a hands-on workshop where you'll deploy your first AI agent and see immediate results. Bring your questions—we'll work through them together.</p>
+                    <div class="event-spots">12 spots remaining</div>
+                    <a href="#" class="event-cta">Register Now →</a>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3>Q1 Planning: Setting Your Agency Up for Success</h3>
+                        </div>
+                        <div class="event-badges">
+                            <span class="event-badge badge-webinar">Webinar</span>
+                            <span class="tier-badge">All Tiers</span>
+                        </div>
+                    </div>
+                    <div class="event-datetime">Thursday, March 10 • 10:00 AM AEDT</div>
+                    <div class="event-host">Host: Sarah Chen, Growth Strategy Coach</div>
+                    <div class="event-duration">Duration: 60 minutes</div>
+                    <p class="event-description">Start the quarter strong with clear goals, strategic priorities, and a realistic action plan. Sarah will share frameworks that top agencies use for quarterly planning.</p>
+                    <a href="#" class="event-cta">Register Now →</a>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3>Panel: How Top Agencies Increased Fees by 20%</h3>
+                        </div>
+                        <div class="event-badges">
+                            <span class="event-badge badge-panel">Panel</span>
+                            <span class="tier-badge">All Tiers</span>
+                        </div>
+                    </div>
+                    <div class="event-datetime">Monday, March 21 • 3:00 PM AEDT</div>
+                    <div class="event-host">Moderated by David Nguyen + 3 agency principals</div>
+                    <div class="event-duration">Duration: 75 minutes</div>
+                    <p class="event-description">Hear from three agency principals who successfully raised their fees without losing clients. They'll share their strategies, scripts, and lessons learned.</p>
+                    <a href="#" class="event-cta">Register Now →</a>
+                </div>
+
+                <!-- Event 4 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3>Office Hours with Ailo Coaches</h3>
+                        </div>
+                        <div class="event-badges">
+                            <span class="event-badge badge-office-hours">Office Hours</span>
+                            <span class="event-badge badge-recurring">Recurring</span>
+                            <span class="tier-badge">All Tiers</span>
+                        </div>
+                    </div>
+                    <div class="event-datetime">Every Friday • 11:00 AM AEDT</div>
+                    <div class="event-host">Host: Rotating Ailo coaches</div>
+                    <div class="event-duration">Duration: 60 minutes</div>
+                    <p class="event-description">Drop in with any questions about the platform, your business, or challenges you're facing. No agenda—just open conversation and support.</p>
+                    <a href="#" class="event-cta">Join This Week →</a>
+                </div>
+
+                <!-- Event 5 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3>Building a Scalable Team Structure</h3>
+                        </div>
+                        <div class="event-badges">
+                            <span class="event-badge badge-webinar">Webinar</span>
+                            <span class="tier-badge">All Tiers</span>
+                        </div>
+                    </div>
+                    <div class="event-datetime">Wednesday, March 23 • 1:00 PM AEDT</div>
+                    <div class="event-host">Host: Marcus Thompson, Operations Coach</div>
+                    <div class="event-duration">Duration: 60 minutes</div>
+                    <p class="event-description">Learn how to structure your team for growth. Marcus will share role definitions, hiring strategies, and performance frameworks that work.</p>
+                    <a href="#" class="event-cta">Register Now →</a>
+                </div>
+
+                <!-- Event 6 -->
+                <div class="event-card">
+                    <div class="event-header">
+                        <div>
+                            <h3>AI Insights: Turn Data into Action</h3>
+                        </div>
+                        <div class="event-badges">
+                            <span class="event-badge badge-workshop">Workshop</span>
+                            <span class="tier-badge">Accelerate & Partnership</span>
+                        </div>
+                    </div>
+                    <div class="event-datetime">Friday, March 25 • 2:30 PM AEDT</div>
+                    <div class="event-host">Host: Emily Rodriguez, AI Strategy Coach</div>
+                    <div class="event-duration">Duration: 90 minutes</div>
+                    <p class="event-description">Discover how AI Insights can reveal opportunities you're missing. We'll walk through real examples and help you set up your first insights dashboard.</p>
+                    <div class="event-spots">8 spots remaining</div>
+                    <a href="#" class="event-cta">Register Now →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Types Section -->
+    <section class="section section-sky">
+        <div class="container">
+            <div class="section-header">
+                <h2>Different ways to learn</h2>
+            </div>
+            <div class="event-types-grid">
+                <div class="event-type-block">
+                    <span class="event-type-icon">🛠️</span>
+                    <h3>Workshops</h3>
+                    <ul>
+                        <li>Hands-on, skill-building sessions</li>
+                        <li>Interactive and practical</li>
+                        <li>Leave with something you can implement immediately</li>
+                    </ul>
+                </div>
+                <div class="event-type-block">
+                    <span class="event-type-icon">🎓</span>
+                    <h3>Webinars</h3>
+                    <ul>
+                        <li>Expert presentations and insights</li>
+                        <li>Learn from industry leaders and coaches</li>
+                        <li>Deep dives into specific topics</li>
+                    </ul>
+                </div>
+                <div class="event-type-block">
+                    <span class="event-type-icon">💬</span>
+                    <h3>Office Hours</h3>
+                    <ul>
+                        <li>Open Q&A with Ailo coaches</li>
+                        <li>Drop in anytime with your questions</li>
+                        <li>Informal, supportive conversations</li>
+                    </ul>
+                </div>
+                <div class="event-type-block">
+                    <span class="event-type-icon">🎤</span>
+                    <h3>Panel Discussions</h3>
+                    <ul>
+                        <li>Learn from multiple agency leaders</li>
+                        <li>Real stories and practical advice</li>
+                        <li>Hear different perspectives on common challenges</li>
+                    </ul>
+                </div>
+                <div class="event-type-block">
+                    <span class="event-type-icon">🤝</span>
+                    <h3>Partner Events</h3>
+                    <ul>
+                        <li>Special series with industry partners</li>
+                        <li>Broader industry insights and connections</li>
+                        <li>Exclusive learning opportunities</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Widget -->
+    <section class="section">
+        <div class="container">
+            <div class="calendar-widget">
+                <h3>Never miss an event</h3>
+                <p>Stay connected with upcoming sessions and get reminders for events you care about</p>
+                <div class="calendar-buttons">
+                    <a href="#" class="btn btn-primary">Subscribe to Calendar</a>
+                    <a href="#" class="btn btn-secondary">Set Up Reminders</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Event Recordings Section -->
+    <section class="section section-warm">
+        <div class="container">
+            <div class="section-header">
+                <h2>Missed an event? Catch up anytime</h2>
+                <p>Access recordings of past sessions whenever you need them</p>
+            </div>
+            <div class="past-events-grid">
+                <!-- Past Event 1 -->
+                <div class="past-event-card">
+                    <div class="past-event-thumbnail">🎓</div>
+                    <div class="past-event-content">
+                        <div class="past-event-date">December 2024</div>
+                        <h3>Fee Optimization Masterclass</h3>
+                        <p class="past-event-description">A comprehensive guide to increasing your management fees while demonstrating value to landlords.</p>
+                        <div class="past-event-duration">Duration: 75 minutes</div>
+                        <a href="#" class="watch-cta">Watch Recording →</a>
+                    </div>
+                </div>
+
+                <!-- Past Event 2 -->
+                <div class="past-event-card">
+                    <div class="past-event-thumbnail">🤖</div>
+                    <div class="past-event-content">
+                        <div class="past-event-date">January 2025</div>
+                        <h3>AI Insights Deep Dive</h3>
+                        <p class="past-event-description">Learn how to use AI Insights to identify opportunities and optimize your portfolio performance.</p>
+                        <div class="past-event-duration">Duration: 60 minutes</div>
+                        <a href="#" class="watch-cta">Watch Recording →</a>
+                    </div>
+                </div>
+
+                <!-- Past Event 3 -->
+                <div class="past-event-card">
+                    <div class="past-event-thumbnail">📊</div>
+                    <div class="past-event-content">
+                        <div class="past-event-date">November 2024</div>
+                        <h3>Year-End Planning Workshop</h3>
+                        <p class="past-event-description">Strategic planning frameworks to close out the year strong and set up for success in the new year.</p>
+                        <div class="past-event-duration">Duration: 90 minutes</div>
+                        <a href="#" class="watch-cta">Watch Recording →</a>
+                    </div>
+                </div>
+
+                <!-- Past Event 4 -->
+                <div class="past-event-card">
+                    <div class="past-event-thumbnail">👥</div>
+                    <div class="past-event-content">
+                        <div class="past-event-date">December 2024</div>
+                        <h3>Team Performance Panel</h3>
+                        <p class="past-event-description">Agency leaders share how they built high-performing teams and improved staff retention.</p>
+                        <div class="past-event-duration">Duration: 80 minutes</div>
+                        <a href="#" class="watch-cta">Watch Recording →</a>
+                    </div>
+                </div>
+
+                <!-- Past Event 5 -->
+                <div class="past-event-card">
+                    <div class="past-event-thumbnail">🔄</div>
+                    <div class="past-event-content">
+                        <div class="past-event-date">October 2024</div>
+                        <h3>Migration Best Practices</h3>
+                        <p class="past-event-description">Everything you need to know about migrating from your legacy system to Ailo smoothly.</p>
+                        <div class="past-event-duration">Duration: 60 minutes</div>
+                        <a href="#" class="watch-cta">Watch Recording →</a>
+                    </div>
+                </div>
+
+                <!-- Past Event 6 -->
+                <div class="past-event-card">
+                    <div class="past-event-thumbnail">⭐</div>
+                    <div class="past-event-content">
+                        <div class="past-event-date">November 2024</div>
+                        <h3>Customer Satisfaction Strategies</h3>
+                        <p class="past-event-description">Proven strategies to improve landlord and tenant satisfaction scores and build loyalty.</p>
+                        <div class="past-event-duration">Duration: 70 minutes</div>
+                        <a href="#" class="watch-cta">Watch Recording →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="section section-pink">
+        <div class="container">
+            <div class="section-header">
+                <h2>Events that make a difference</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <blockquote class="testimonial-quote">
+                        "The panel on fee increases gave me the confidence I needed. Two weeks later, I had the conversation with my clients—and it went better than I could have imagined."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">👨‍💼</div>
+                        <div class="testimonial-meta">
+                            <h4>James Chen</h4>
+                            <p>Managing Director, Metro Property Partners</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <blockquote class="testimonial-quote">
+                        "Office hours with the coaches are my favorite. I can ask anything, and they always have practical advice. It's like having a business partner on speed dial."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">👩‍💼</div>
+                        <div class="testimonial-meta">
+                            <h4>Sarah Mitchell</h4>
+                            <p>Principal, Coastal Properties</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to join us?</h2>
+            <p>Every session is a chance to learn, connect, and grow</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Register for an Event</a>
+                <a href="#" class="btn btn-secondary">Browse All Events</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="product-overview.html">Overview</a></li>
+                    <li><a href="product-core.html">Ailo Core</a></li>
+                    <li><a href="product-accelerate.html">Ailo Accelerate</a></li>
+                    <li><a href="product-partnership.html">Ailo Partnership</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Coaching</h4>
+                <ul>
+                    <li><a href="coaching-overview.html">Overview</a></li>
+                    <li><a href="coaching-resources.html">Resource Centre</a></li>
+                    <li><a href="coaching-events.html">Events & Webinars</a></li>
+                    <li><a href="coaching-community.html">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#vision">Vision</a></li>
+                    <li><a href="#the-plan">The Plan</a></li>
+                    <li><a href="#customer-stories">Customer Stories</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#help">Help Centre</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ailo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
