@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier Property Group Case Study - Ailo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors */
+            --white: #FFFFFF;
+            --black: #000000;
+            --sky-blue: #EAF1FB;
+            --cloud-gray: #F7F7F7;
+            --pink-accent: #FDEDF1;
+            --warm-purple: #F5F0FB;
+            --primary-action: rgb(238, 11, 79);
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --success-green: #10b981;
+            --info-blue: #3b82f6;
+            --warning-amber: #f59e0b;
+
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+
+            /* Shadows */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
+
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.65;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: transparent;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--cloud-gray);
+            opacity: 1;
+        }
+
+        .dropdown-content a.active {
+            color: var(--primary-action);
+            background: var(--pink-accent);
+        }
+
+        .nav-cta {
+            background: var(--primary-action);
+            color: var(--white) !important;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9 !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--cloud-gray);
+            padding: var(--spacing-md) var(--spacing-lg);
+        }
+
+        .breadcrumb-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-action);
+        }
+
+        .breadcrumb span {
+            color: var(--text-secondary);
+            margin: 0 var(--spacing-xs);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--cloud-gray) 100%);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .hero-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .agency-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+        }
+
+        .agency-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--pink-accent) 0%, var(--warm-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: var(--shadow-lg);
+            flex-shrink: 0;
+        }
+
+        .agency-details h1 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .agency-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .agency-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .tier-badge {
+            background: var(--warning-amber);
+            color: var(--white);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-top: var(--spacing-sm);
+        }
+
+        .hero-headline {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.2;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .hero-metric {
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-action);
+            line-height: 1;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .hero-metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .hero-metric-detail {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+
+        .hero-quote {
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-action);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-quote blockquote {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-quote cite {
+            font-style: normal;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Section Container */
+        .section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .section-alternate {
+            background: var(--cloud-gray);
+        }
+
+        .section-sky {
+            background: var(--sky-blue);
+        }
+
+        .section-pink {
+            background: var(--pink-accent);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Content Typography */
+        .content p {
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: var(--spacing-2xl);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Problem Blocks */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .problem-block {
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .problem-block h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-action);
+        }
+
+        .problem-block ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .problem-block li {
+            padding: var(--spacing-xs) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .problem-block li::before {
+            content: '×';
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* Callout Quote */
+        .callout-quote {
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-action);
+            margin: var(--spacing-2xl) 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .callout-quote p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Metrics Table */
+        .metrics-table {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .metrics-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .metrics-table th,
+        .metrics-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .metrics-table th {
+            background: var(--cloud-gray);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metrics-table td {
+            font-size: 0.95rem;
+        }
+
+        .metrics-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Timeline Phases */
+        .phase {
+            background: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--info-blue);
+        }
+
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .phase-header h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .phase-timeframe {
+            background: var(--info-blue);
+            color: var(--white);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .phase-subtitle {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .phase h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .phase ul {
+            margin: var(--spacing-md) 0;
+            margin-left: var(--spacing-lg);
+        }
+
+        .phase li {
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-secondary);
+        }
+
+        /* Pillars */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .pillar-block {
+            background: var(--white);
+            padding: var(--spacing-2xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .pillar-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
+            margin: 0 auto var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .pillar-block h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            margin-top: 0;
+        }
+
+        .pillar-block ul {
+            list-style: none;
+            text-align: left;
+            margin: 0;
+        }
+
+        .pillar-block li {
+            padding: var(--spacing-xs) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .pillar-block li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: 700;
+        }
+
+        /* Final Reflection */
+        .final-reflection {
+            background: var(--white);
+            padding: var(--spacing-3xl);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .final-reflection blockquote {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .final-reflection blockquote p {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .reflection-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            padding-top: var(--spacing-xl);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .reflection-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--pink-accent) 0%, var(--warm-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .reflection-info strong {
+            display: block;
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .reflection-info span {
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .cta-section p {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-action);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-primary);
+            border: 2px solid var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-primary);
+            color: var(--white);
+        }
+
+        .cta-nav-links {
+            display: flex;
+            gap: var(--spacing-xl);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .cta-nav-links a:hover {
+            color: var(--primary-action);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: var(--white);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .footer-section h4 {
+            margin-bottom: var(--spacing-md);
+            font-size: 1.125rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: var(--spacing-xl) auto 0;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--shadow-md);
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu > li {
+                width: 100%;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: var(--spacing-sm);
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                padding-left: var(--spacing-md);
+                margin-top: var(--spacing-xs);
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .hero-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-table {
+                overflow-x: auto;
+            }
+
+            .reflection-author {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Vector.png" alt="Ailo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="product-overview.html">Product</a>
+                    <div class="dropdown-content">
+                        <a href="product-overview.html">Overview</a>
+                        <a href="product-core.html">Core</a>
+                        <a href="product-accelerate.html">Accelerate</a>
+                        <a href="product-partnership.html">Partnership</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="coaching-overview.html">Coaching</a>
+                    <div class="dropdown-content">
+                        <a href="coaching-overview.html">Overview</a>
+                        <a href="coaching-resources.html">Resource Centre</a>
+                        <a href="coaching-events.html">Events</a>
+                        <a href="coaching-community.html">Community</a>
+                    </div>
+                </li>
+                <li><a href="customer-stories.html" class="active">Customer Stories</a></li>
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#the-plan">The Plan</a></li>
+                <li><a href="#get-started" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="customer-stories.html">← Back to All Stories</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="agency-info">
+                <div class="agency-avatar">👩‍💼</div>
+                <div class="agency-details">
+                    <h1>Premier Property Group</h1>
+                    <div class="agency-meta">
+                        <span class="agency-meta-item">📍 Sydney, NSW</span>
+                        <span class="agency-meta-item">🏢 Residential Property Management</span>
+                        <span class="agency-meta-item">📊 1,200 properties</span>
+                        <span class="agency-meta-item">⏱️ 18 months</span>
+                    </div>
+                    <span class="tier-badge">Partnership</span>
+                </div>
+            </div>
+
+            <h2 class="hero-headline">From Stagnant to Scaling: How Premier Property Group Doubled Their Portfolio in 18 Months</h2>
+
+            <div class="hero-metrics">
+                <div class="hero-metric">
+                    <div class="hero-metric-value">+100%</div>
+                    <div class="hero-metric-label">Portfolio Growth</div>
+                    <div class="hero-metric-detail">600 → 1,200 properties</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-value">+14%</div>
+                    <div class="hero-metric-label">Management Fees</div>
+                    <div class="hero-metric-detail">7% → 8.5% average</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-value">-70%</div>
+                    <div class="hero-metric-label">Staff Turnover</div>
+                    <div class="hero-metric-detail">40% → 12% annually</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-value">+190%</div>
+                    <div class="hero-metric-label">Owner NPS</div>
+                    <div class="hero-metric-detail">+18 → +52</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-value">+92%</div>
+                    <div class="hero-metric-label">Profit Margin</div>
+                    <div class="hero-metric-detail">12% → 23%</div>
+                </div>
+                <div class="hero-metric">
+                    <div class="hero-metric-value">+128%</div>
+                    <div class="hero-metric-label">Revenue Growth</div>
+                    <div class="hero-metric-detail">18-month period</div>
+                </div>
+            </div>
+
+            <div class="hero-quote">
+                <blockquote>"Ailo didn't just give us software—they gave us a business operating system. We went from stagnant to scaling, from reactive to strategic, from stressed to thriving."</blockquote>
+                <cite>— Rebecca Torres, Founder & CEO</cite>
+            </div>
+        </div>
+    </section>
+
+    <!-- Executive Summary -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Transformation at a Glance</h2>
+            </div>
+            <div class="content">
+                <p>Rebecca Torres had built Premier Property Group to 600 properties over 8 years, but hit a wall. Using five disconnected systems, her team spent more time on admin than actual property management. Staff turnover was 40% annually, and growth felt impossible without sacrificing quality.</p>
+
+                <p>In 18 months with Ailo, everything changed. By consolidating operations into one platform, deploying AI agents to handle repetitive work, and partnering with dedicated coaches for strategic guidance, Premier doubled their portfolio to 1,200 properties while dramatically improving team performance and client satisfaction.</p>
+
+                <p>This is the story of how a business operating system—not just software—transformed a good agency into an exceptional one.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Challenge -->
+    <section class="section section-alternate">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Breaking Point</h2>
+                <p>Rebecca had built a successful agency, but growth had stalled for 2 years at 600 properties.</p>
+            </div>
+
+            <div class="problems-grid">
+                <div class="problem-block">
+                    <h4>1. System Chaos</h4>
+                    <ul>
+                        <li>Five disconnected systems</li>
+                        <li>Information scattered across platforms</li>
+                        <li>Manual data entry causing errors</li>
+                        <li>No single source of truth</li>
+                    </ul>
+                </div>
+
+                <div class="problem-block">
+                    <h4>2. Invisible Performance</h4>
+                    <ul>
+                        <li>No real-time visibility into team performance</li>
+                        <li>Issues discovered too late</li>
+                        <li>Wide performance gaps (45-95 properties per PM)</li>
+                        <li>No data-driven coaching</li>
+                    </ul>
+                </div>
+
+                <div class="problem-block">
+                    <h4>3. Reactive Management</h4>
+                    <ul>
+                        <li>Constantly firefighting</li>
+                        <li>No strategic planning time</li>
+                        <li>Growth felt chaotic, not intentional</li>
+                        <li>Rebecca working 60+ hour weeks</li>
+                    </ul>
+                </div>
+
+                <div class="problem-block">
+                    <h4>4. Staff Burnout</h4>
+                    <ul>
+                        <li>40% annual turnover</li>
+                        <li>Lost 3 top performers to burnout</li>
+                        <li>Constant training of new staff</li>
+                        <li>Team morale suffering</li>
+                    </ul>
+                </div>
+
+                <div class="problem-block">
+                    <h4>5. No Data for Growth</h4>
+                    <ul>
+                        <li>Couldn't justify fee increases</li>
+                        <li>No clear profitability picture</li>
+                        <li>Gut-feel decisions</li>
+                        <li>Losing premium clients</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout-quote">
+                <p>"We were using five different systems. My property managers spent more time switching between platforms than actually managing properties. Staff turnover was 40% annually—I couldn't scale when I was constantly training new people. And honestly, I had no idea which parts of my business were actually profitable."</p>
+            </div>
+
+            <div class="metrics-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Before Ailo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Portfolio</td>
+                            <td>600 properties (stagnant 2 years)</td>
+                        </tr>
+                        <tr>
+                            <td>Management Fee</td>
+                            <td>7% average</td>
+                        </tr>
+                        <tr>
+                            <td>Properties per PM</td>
+                            <td>65 (industry standard)</td>
+                        </tr>
+                        <tr>
+                            <td>Staff Turnover</td>
+                            <td>40% annually</td>
+                        </tr>
+                        <tr>
+                            <td>Admin Time per Week</td>
+                            <td>25+ hours</td>
+                        </tr>
+                        <tr>
+                            <td>Owner NPS</td>
+                            <td>+18 (industry average)</td>
+                        </tr>
+                        <tr>
+                            <td>Profit Margin</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>Growth Status</td>
+                            <td>Stagnant</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Transformation -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Ailo Journey: 18 Months of Change</h2>
+            </div>
+
+            <!-- Phase 1 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h3>Phase 1: Foundation</h3>
+                    <span class="phase-timeframe">Months 1-2</span>
+                </div>
+                <p class="phase-subtitle">Started on Accelerate tier</p>
+
+                <h4>What Happened</h4>
+                <p>Rebecca began with Ailo Accelerate. Her assigned coach, Sarah Chen, spent the first 10 hours mapping Premier's existing workflows and creating a comprehensive migration plan.</p>
+
+                <div class="callout-quote">
+                    <p>"Sarah didn't just help us switch systems—she helped us redesign how we work. We identified 15 hours of weekly redundant tasks in the first session alone."</p>
+                </div>
+
+                <h4>Actions Taken</h4>
+                <ul>
+                    <li>Consolidated 5 systems into one Ailo platform</li>
+                    <li>Automated rent collection and owner payments</li>
+                    <li>Unified all communications (no more lost emails)</li>
+                    <li>Set up real-time analytics dashboards</li>
+                    <li>Deployed first AI agent: Lease Renewal automation</li>
+                </ul>
+
+                <h4>Quick Wins</h4>
+                <ul>
+                    <li>8 hours/week saved immediately on payments</li>
+                    <li>All team communications visible in one place</li>
+                    <li>First lease renewal handled entirely by AI agent</li>
+                    <li>Team morale improved from reduced admin burden</li>
+                </ul>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h3>Phase 2: Performance Visibility</h3>
+                    <span class="phase-timeframe">Months 3-6</span>
+                </div>
+
+                <h4>What Happened</h4>
+                <p>With everything in one system, Rebecca could finally see what was actually happening in her business in real-time.</p>
+
+                <div class="callout-quote">
+                    <p>"The analytics showed me that our top performer managed 95 properties while our struggling PMs handled 45. I had no idea the gap was that big. AI Team Coaching started flagging performance issues in real-time—we could help people before they failed, not after."</p>
+                </div>
+
+                <h4>Actions Taken</h4>
+                <ul>
+                    <li>Implemented real-time performance dashboards for every PM</li>
+                    <li>AI Team Coaching provided daily feedback to team members</li>
+                    <li>Used data to restructure territories and support struggling staff</li>
+                    <li>Deployed second AI agent: Arrears Management</li>
+                    <li>Coached underperformers with specific, data-driven guidance</li>
+                </ul>
+
+                <h4>Results by Month 6</h4>
+                <ul>
+                    <li>Properties per PM increased to 78 (+20% improvement)</li>
+                    <li>Staff turnover dropped to 25%</li>
+                    <li>Admin time reduced to 12 hours/week</li>
+                    <li>Added 80 new properties (first growth in 2 years)</li>
+                    <li>Team members felt supported, not micromanaged</li>
+                </ul>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h3>Phase 3: Upgrading to Partnership</h3>
+                    <span class="phase-timeframe">Month 6</span>
+                </div>
+
+                <div class="callout-quote">
+                    <p>"By month 6, I realized we were just scratching the surface. I wanted unlimited coaching and unlimited AI agents—I wanted to go all in."</p>
+                </div>
+
+                <p>Rebecca upgraded to Partnership, changing the relationship fundamentally.</p>
+
+                <h4>What Changed with Partnership</h4>
+                <ul>
+                    <li>Weekly strategy sessions with Sarah (vs monthly on Accelerate)</li>
+                    <li>Unlimited coaching meant immediate support for every challenge</li>
+                    <li>Success-based pricing aligned Ailo's incentives with Rebecca's growth</li>
+                    <li>Deployed 5 additional AI agents:
+                        <ul>
+                            <li>Inspection Scheduling Agent</li>
+                            <li>Lead Nurture Agent</li>
+                            <li>Maintenance Coordination Agent</li>
+                            <li>Tenant Onboarding Agent</li>
+                            <li>Owner Reporting Agent</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="callout-quote">
+                    <p>"With Partnership, Sarah became my true strategic partner. We weren't just talking about platform features—we were planning the next 3 years of growth together."</p>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h3>Phase 4: Aggressive Growth</h3>
+                    <span class="phase-timeframe">Months 7-12</span>
+                </div>
+
+                <h4>What Happened</h4>
+                <p>With operational efficiency handled by 7 AI agents and the team performing at high levels, Rebecca focused entirely on strategic growth.</p>
+
+                <div class="callout-quote">
+                    <p>"Sarah helped me build a growth plan I actually believed in. We targeted premium properties and positioned ourselves as the data-driven agency."</p>
+                </div>
+
+                <h4>Growth Strategy</h4>
+                <ul>
+                    <li>Used AI Customer Intelligence to identify at-risk competitors' clients</li>
+                    <li>Lead Nurture Agent followed up with every inquiry within 2 hours</li>
+                    <li>Coaching sessions focused on pitch refinement and fee justification</li>
+                    <li>Hired 2 new PMs with confidence (faster onboarding with AI support)</li>
+                    <li>Presented landlords with data-backed service promises</li>
+                </ul>
+
+                <h4>Results by Month 12</h4>
+                <ul>
+                    <li>Added 420 new properties (70 per month average)</li>
+                    <li>Portfolio reached 1,100 properties</li>
+                    <li>Increased management fee to 7.8% (justified with performance data)</li>
+                    <li>Staff turnover down to 15%</li>
+                    <li>Team morale at all-time high</li>
+                    <li>Won "Rising Agency of the Year" award</li>
+                </ul>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <h3>Phase 5: Premium Positioning</h3>
+                    <span class="phase-timeframe">Months 13-18</span>
+                </div>
+
+                <div class="callout-quote">
+                    <p>"Once we hit 1,000 properties, Sarah and I worked on premium positioning. We weren't competing on price anymore—we were the agency that delivered measurable results."</p>
+                </div>
+
+                <h4>Final Push</h4>
+                <ul>
+                    <li>Increased fee to 8.5% for new clients (presented with performance data)</li>
+                    <li>Approached existing clients with fee increase to 8% backed by analytics</li>
+                    <li>90% of existing clients accepted the increase</li>
+                    <li>Added 100 more properties (now selective about quality over quantity)</li>
+                    <li>Owner NPS jumped to +52 (top quartile in industry)</li>
+                    <li>Featured in industry publication about data-driven property management</li>
+                </ul>
+
+                <div class="callout-quote">
+                    <p>"By month 18, we weren't the same business anymore. We had doubled in size, but it felt easier than managing 600 properties used to feel."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Results -->
+    <section class="section section-sky">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Outcome: A Transformed Business</h2>
+            </div>
+
+            <div class="metrics-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Before Ailo</th>
+                            <th>After 18 Months</th>
+                            <th>Change</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Portfolio</strong></td>
+                            <td>600 properties</td>
+                            <td>1,200 properties</td>
+                            <td style="color: var(--success-green); font-weight: 600;">+100%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Management Fee</strong></td>
+                            <td>7% average</td>
+                            <td>8.5% new / 8% average</td>
+                            <td style="color: var(--success-green); font-weight: 600;">+14% average</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Properties per PM</strong></td>
+                            <td>65</td>
+                            <td>92</td>
+                            <td style="color: var(--success-green); font-weight: 600;">+41%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Staff Turnover</strong></td>
+                            <td>40% annually</td>
+                            <td>12% annually</td>
+                            <td style="color: var(--success-green); font-weight: 600;">-70%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Admin Time/Week</strong></td>
+                            <td>25+ hours</td>
+                            <td>5 hours</td>
+                            <td style="color: var(--success-green); font-weight: 600;">-80%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Owner NPS</strong></td>
+                            <td>+18</td>
+                            <td>+52</td>
+                            <td style="color: var(--success-green); font-weight: 600;">+190%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Profit Margin</strong></td>
+                            <td>12%</td>
+                            <td>23%</td>
+                            <td style="color: var(--success-green); font-weight: 600;">+92%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Revenue</strong></td>
+                            <td>Baseline</td>
+                            <td>+128%</td>
+                            <td style="color: var(--success-green); font-weight: 600;">+128%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content">
+                <h3>Team Impact</h3>
+                <ul>
+                    <li>3 PMs promoted to senior roles</li>
+                    <li>Zero burnout-related departures in 18 months</li>
+                    <li>Team members report feeling "supported" and "confident"</li>
+                    <li>AI coaching gave everyone personalized development paths</li>
+                    <li>Best employee satisfaction scores in agency history</li>
+                </ul>
+
+                <h3>AI Agents Deployed</h3>
+                <ol>
+                    <li>Lease Renewal Agent</li>
+                    <li>Arrears Management Agent</li>
+                    <li>Inspection Scheduling Agent</li>
+                    <li>Lead Nurture Agent</li>
+                    <li>Maintenance Coordination Agent</li>
+                    <li>Tenant Onboarding Agent</li>
+                    <li>Owner Reporting Agent</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Made the Difference -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Three Pillars of Transformation</h2>
+            </div>
+
+            <div class="pillars-grid">
+                <div class="pillar-block">
+                    <div class="pillar-icon">💻</div>
+                    <h3>The Platform</h3>
+                    <ul>
+                        <li>One system eliminated chaos and saved 20+ hours weekly</li>
+                        <li>Real-time data enabled smart, confident decisions</li>
+                        <li>7 AI agents scaled operations without proportional headcount</li>
+                        <li>Analytics proved value to clients and justified premium fees</li>
+                    </ul>
+                </div>
+
+                <div class="pillar-block">
+                    <div class="pillar-icon">🤝</div>
+                    <h3>The Coaching</h3>
+                    <ul>
+                        <li>Sarah helped redesign workflows, not just migrate systems</li>
+                        <li>Weekly strategy sessions kept Rebecca focused on what mattered</li>
+                        <li>Accountability and support through every challenge</li>
+                        <li>Business transformation expertise beyond technical support</li>
+                        <li>"Sarah knew my business as well as I did"</li>
+                    </ul>
+                </div>
+
+                <div class="pillar-block">
+                    <div class="pillar-icon">⭐</div>
+                    <h3>The Partnership</h3>
+                    <ul>
+                        <li>Success-based pricing meant true partnership</li>
+                        <li>Unlimited agents removed any growth ceiling</li>
+                        <li>Unlimited coaching meant no challenge was insurmountable</li>
+                        <li>Ailo's success tied directly to Rebecca's success</li>
+                        <li>"They only win when we win—that changed everything"</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Reflection -->
+    <section class="section section-pink">
+        <div class="container">
+            <div class="section-header">
+                <h2>In Rebecca's Words</h2>
+            </div>
+
+            <div class="final-reflection">
+                <blockquote>
+                    <p>Ailo didn't just give us software—they gave us a business operating system. Sarah and our coaching sessions transformed how I think about growth. The AI agents handle the work, the analytics show us what's working, and the coaching keeps us focused on what matters.</p>
+
+                    <p>The Partnership model changed everything. Knowing that Ailo only makes money when we succeed? That's real partnership. They're as invested in our growth as we are.</p>
+
+                    <p>We went from stagnant to scaling, from reactive to strategic, from stressed to thriving. My team is happy. My clients are happy. And for the first time in years, I'm excited about the future instead of exhausted by the present.</p>
+
+                    <p>If you're where I was 18 months ago—stuck, overwhelmed, knowing you could be better—I can't recommend Ailo enough. Not just the platform, but the whole system. It's the partner I wish I'd found years ago.</p>
+                </blockquote>
+
+                <div class="reflection-author">
+                    <div class="reflection-avatar">👩‍💼</div>
+                    <div class="reflection-info">
+                        <strong>Rebecca Torres</strong>
+                        <span>Founder & CEO, Premier Property Group</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to write your own transformation story?</h2>
+            <p>See what's possible when you have the right platform, coaching, and partnership.</p>
+            <div class="cta-buttons">
+                <a href="#get-started" class="btn btn-primary">Get Started</a>
+                <a href="#contact" class="btn btn-secondary">Talk to Us</a>
+            </div>
+            <div class="cta-nav-links">
+                <a href="customer-stories.html">← Back to All Stories</a>
+                <a href="product-partnership.html">Explore Partnership Tier →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="product-overview.html">Overview</a></li>
+                    <li><a href="product-core.html">Ailo Core</a></li>
+                    <li><a href="product-accelerate.html">Ailo Accelerate</a></li>
+                    <li><a href="product-partnership.html">Ailo Partnership</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Coaching</h4>
+                <ul>
+                    <li><a href="coaching-overview.html">Overview</a></li>
+                    <li><a href="coaching-resources.html">Resource Centre</a></li>
+                    <li><a href="coaching-events.html">Events</a></li>
+                    <li><a href="coaching-community.html">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#vision">Vision</a></li>
+                    <li><a href="#the-plan">The Plan</a></li>
+                    <li><a href="customer-stories.html">Customer Stories</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#help">Help Centre</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ailo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

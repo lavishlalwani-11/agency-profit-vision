@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Stories - Ailo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Colors */
+            --white: #FFFFFF;
+            --black: #000000;
+            --sky-blue: #EAF1FB;
+            --cloud-gray: #F7F7F7;
+            --pink-accent: #FDEDF1;
+            --warm-purple: #F5F0FB;
+            --primary-action: rgb(238, 11, 79);
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --success-green: #10b981;
+            --info-blue: #3b82f6;
+            --warning-amber: #f59e0b;
+
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+
+            /* Shadows */
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.10);
+
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.65;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: transparent;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: background 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--cloud-gray);
+            opacity: 1;
+        }
+
+        .dropdown-content a.active {
+            color: var(--primary-action);
+            background: var(--pink-accent);
+        }
+
+        .nav-cta {
+            background: var(--primary-action);
+            color: var(--white) !important;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9 !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--cloud-gray) 100%);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.1;
+        }
+
+        .hero-subheadline {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* Section Container */
+        .section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        .section-alternate {
+            background: var(--cloud-gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-header p {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Featured Story */
+        .featured-story {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-2xl);
+            box-shadow: var(--shadow-lg);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .featured-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xl);
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+
+        .featured-agency-info h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .featured-location {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .tier-badge {
+            background: var(--warning-amber);
+            color: var(--white);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .featured-transformation {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .transformation-headline {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--primary-action);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .featured-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .metric-card {
+            background: var(--sky-blue);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-action);
+            line-height: 1;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .metric-detail {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: var(--spacing-xs);
+        }
+
+        .featured-quote {
+            background: var(--cloud-gray);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-xl);
+            border-left: 4px solid var(--primary-action);
+        }
+
+        .featured-quote blockquote {
+            font-size: 1.375rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .quote-author {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--pink-accent) 0%, var(--warm-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .author-info strong {
+            display: block;
+            font-size: 1.125rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .author-info span {
+            color: var(--text-secondary);
+        }
+
+        .featured-cta {
+            text-align: center;
+        }
+
+        .btn-featured {
+            display: inline-block;
+            background: var(--primary-action);
+            color: var(--white);
+            padding: var(--spacing-md) var(--spacing-2xl);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-featured:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Filters */
+        .filters-container {
+            max-width: 1000px;
+            margin: 0 auto var(--spacing-2xl);
+        }
+
+        .filter-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .filter-btn {
+            padding: var(--spacing-xs) var(--spacing-md);
+            background: var(--white);
+            border: 2px solid var(--cloud-gray);
+            border-radius: var(--radius-full);
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-action);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-action);
+            color: var(--white);
+            border-color: var(--primary-action);
+        }
+
+        /* Story Cards */
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .story-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .story-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-6px);
+        }
+
+        .story-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-md);
+            gap: var(--spacing-sm);
+        }
+
+        .story-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .story-tagline {
+            color: var(--primary-action);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .story-portfolio {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .story-achievement {
+            font-weight: 500;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.5;
+        }
+
+        .story-quote-snippet {
+            background: var(--cloud-gray);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            flex-grow: 1;
+        }
+
+        .story-metrics-preview {
+            color: var(--success-green);
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .story-cta {
+            color: var(--primary-action);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
+        }
+
+        .final-cta h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .final-cta p {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-action);
+            color: var(--white);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-primary);
+            border: 2px solid var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text-primary);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-primary);
+            color: var(--white);
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+        }
+
+        .footer-section h4 {
+            margin-bottom: var(--spacing-md);
+            font-size: 1.125rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: var(--spacing-xl) auto 0;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: var(--spacing-md);
+                box-shadow: var(--shadow-md);
+                gap: 0;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu > li {
+                width: 100%;
+            }
+
+            .nav-menu a {
+                display: block;
+                padding: var(--spacing-sm);
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                padding-left: var(--spacing-md);
+                margin-top: var(--spacing-xs);
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .featured-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-options {
+                flex-direction: column;
+            }
+
+            .filter-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Vector.png" alt="Ailo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="product-overview.html">Product</a>
+                    <div class="dropdown-content">
+                        <a href="product-overview.html">Overview</a>
+                        <a href="product-core.html">Core</a>
+                        <a href="product-accelerate.html">Accelerate</a>
+                        <a href="product-partnership.html">Partnership</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="coaching-overview.html">Coaching</a>
+                    <div class="dropdown-content">
+                        <a href="coaching-overview.html">Overview</a>
+                        <a href="coaching-resources.html">Resource Centre</a>
+                        <a href="coaching-events.html">Events</a>
+                        <a href="coaching-community.html">Community</a>
+                    </div>
+                </li>
+                <li><a href="customer-stories.html" class="active">Customer Stories</a></li>
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#the-plan">The Plan</a></li>
+                <li><a href="#get-started" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Real agencies. Real transformation.</h1>
+            <p class="hero-subheadline">See how agencies like yours are growing revenue, improving performance, and building winning teams with Ailo.</p>
+        </div>
+    </section>
+
+    <!-- Featured Story Section -->
+    <section class="section">
+        <div class="container">
+            <div class="featured-story">
+                <div class="featured-header">
+                    <div class="featured-agency-info">
+                        <h3>Premier Property Group</h3>
+                        <p class="featured-location">Sydney, NSW</p>
+                    </div>
+                    <span class="tier-badge">Partnership</span>
+                </div>
+
+                <div class="featured-transformation">
+                    <h2 class="transformation-headline">600 → 1,200 properties in 18 months</h2>
+                </div>
+
+                <div class="featured-metrics">
+                    <div class="metric-card">
+                        <div class="metric-value">+100%</div>
+                        <div class="metric-label">Portfolio Growth</div>
+                        <div class="metric-detail">600 → 1,200 properties</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">+14%</div>
+                        <div class="metric-label">Management Fees</div>
+                        <div class="metric-detail">7% → 8.5% average</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">-70%</div>
+                        <div class="metric-label">Staff Turnover</div>
+                        <div class="metric-detail">40% → 12% annually</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">+190%</div>
+                        <div class="metric-label">Owner NPS</div>
+                        <div class="metric-detail">+18 → +52</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">+92%</div>
+                        <div class="metric-label">Profit Margin</div>
+                        <div class="metric-detail">12% → 23%</div>
+                    </div>
+                </div>
+
+                <div class="featured-quote">
+                    <blockquote>
+                        "Ailo didn't just give us software—they gave us a business operating system. We went from stagnant to scaling, from reactive to strategic, from stressed to thriving."
+                    </blockquote>
+                    <div class="quote-author">
+                        <div class="author-avatar">👩‍💼</div>
+                        <div class="author-info">
+                            <strong>Rebecca Torres</strong>
+                            <span>Founder & CEO, Premier Property Group</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-cta">
+                    <a href="customer-story-detail.html" class="btn-featured">Read Full Story →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="section section-alternate">
+        <div class="container">
+            <div class="section-header">
+                <h2>Find stories that match your goals</h2>
+            </div>
+            <div class="filters-container">
+                <div class="filter-group">
+                    <div class="filter-label">Filter by Outcome</div>
+                    <div class="filter-options">
+                        <button class="filter-btn active">All</button>
+                        <button class="filter-btn">Revenue Growth</button>
+                        <button class="filter-btn">Portfolio Growth</button>
+                        <button class="filter-btn">Team Performance</button>
+                        <button class="filter-btn">Operational Excellence</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Filter by Tier</div>
+                    <div class="filter-options">
+                        <button class="filter-btn active">All Tiers</button>
+                        <button class="filter-btn">Core</button>
+                        <button class="filter-btn">Accelerate</button>
+                        <button class="filter-btn">Partnership</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-label">Filter by Agency Size</div>
+                    <div class="filter-options">
+                        <button class="filter-btn active">All Sizes</button>
+                        <button class="filter-btn">0-200 properties</button>
+                        <button class="filter-btn">200-500 properties</button>
+                        <button class="filter-btn">500-1,000 properties</button>
+                        <button class="filter-btn">1,000+ properties</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Grid Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Transformation stories</h2>
+            </div>
+            <div class="stories-grid">
+                <!-- Story 1: Premier -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Premier Property Group</h3>
+                        </div>
+                        <span class="tier-badge">Partnership</span>
+                    </div>
+                    <p class="story-tagline">From stagnant to scaling</p>
+                    <p class="story-portfolio">1,200 properties (grew from 600)</p>
+                    <p class="story-achievement">Doubled portfolio, increased fees by 14%, reduced turnover by 70%</p>
+                    <div class="story-quote-snippet">"Ailo gave us a business operating system..."</div>
+                    <p class="story-metrics-preview">+100% growth, +14% fees, -70% turnover</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+
+                <!-- Story 2: Metro -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Metro Property Partners</h3>
+                        </div>
+                        <span class="tier-badge" style="background: var(--info-blue);">Accelerate</span>
+                    </div>
+                    <p class="story-tagline">Scaling without burnout</p>
+                    <p class="story-portfolio">450 properties (grew from 300)</p>
+                    <p class="story-achievement">50% growth with AI agents handling renewals and arrears</p>
+                    <div class="story-quote-snippet">"We're growing faster than ever, and our team is happier..."</div>
+                    <p class="story-metrics-preview">+50% growth, same team size</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+
+                <!-- Story 3: Coastal -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Coastal Properties</h3>
+                        </div>
+                        <span class="tier-badge" style="background: var(--success-green);">Core</span>
+                    </div>
+                    <p class="story-tagline">From overwhelmed to award-winning</p>
+                    <p class="story-portfolio">300 properties</p>
+                    <p class="story-achievement">Eliminated 3 legacy systems, reduced admin by 15 hours/week</p>
+                    <div class="story-quote-snippet">"We finally have everything in one place..."</div>
+                    <p class="story-metrics-preview">15 hrs/week saved, 3 systems eliminated</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+
+                <!-- Story 4: Riverside -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Riverside Property Management</h3>
+                        </div>
+                        <span class="tier-badge" style="background: var(--success-green);">Core</span>
+                    </div>
+                    <p class="story-tagline">Commanding premium fees with confidence</p>
+                    <p class="story-portfolio">280 properties</p>
+                    <p class="story-achievement">Increased fees by 15% with data to back it up</p>
+                    <div class="story-quote-snippet">"Our landlords see the value now..."</div>
+                    <p class="story-metrics-preview">+15% fees, +35 NPS</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+
+                <!-- Story 5: Harbour -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Harbour Property Group</h3>
+                        </div>
+                        <span class="tier-badge" style="background: var(--info-blue);">Accelerate</span>
+                    </div>
+                    <p class="story-tagline">Building a high-performance culture</p>
+                    <p class="story-portfolio">520 properties</p>
+                    <p class="story-achievement">Staff turnover cut in half, every PM exceeding targets</p>
+                    <div class="story-quote-snippet">"AI coaching changed how we develop our team..."</div>
+                    <p class="story-metrics-preview">-50% turnover, +25% productivity</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+
+                <!-- Story 6: Brighton -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Brighton Property Management</h3>
+                        </div>
+                        <span class="tier-badge" style="background: var(--success-green);">Core</span>
+                    </div>
+                    <p class="story-tagline">Regional agency, national excellence</p>
+                    <p class="story-portfolio">180 properties</p>
+                    <p class="story-achievement">Won regional agency of the year with Ailo</p>
+                    <div class="story-quote-snippet">"Budget-conscious doesn't mean compromising on excellence..."</div>
+                    <p class="story-metrics-preview">Award winner, +40% efficiency</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+
+                <!-- Story 7: Parkside -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Parkside Property Group</h3>
+                        </div>
+                        <span class="tier-badge">Partnership</span>
+                    </div>
+                    <p class="story-tagline">Strategic growth through data</p>
+                    <p class="story-portfolio">850 properties (grew from 620)</p>
+                    <p class="story-achievement">37% growth by targeting premium properties with analytics</p>
+                    <div class="story-quote-snippet">"We know exactly where we're profitable..."</div>
+                    <p class="story-metrics-preview">+37% growth, premium positioning</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+
+                <!-- Story 8: Eastside -->
+                <a href="customer-story-detail.html" class="story-card">
+                    <div class="story-header">
+                        <div>
+                            <h3>Eastside Property Partners</h3>
+                        </div>
+                        <span class="tier-badge" style="background: var(--info-blue);">Accelerate</span>
+                    </div>
+                    <p class="story-tagline">AI-powered efficiency unlocked growth</p>
+                    <p class="story-portfolio">410 properties (grew from 290)</p>
+                    <p class="story-achievement">41% growth with same team size using AI agents</p>
+                    <div class="story-quote-snippet">"Our AI agents are like having 2 extra team members..."</div>
+                    <p class="story-metrics-preview">+41% growth, no new hires</p>
+                    <span class="story-cta">Read Story →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Your transformation starts here</h2>
+            <p>Every story on this page started with a single decision: to partner with Ailo. What could your story look like in 18 months?</p>
+            <div class="cta-buttons">
+                <a href="#get-started" class="btn btn-primary">Get Started</a>
+                <a href="#contact" class="btn btn-secondary">Talk to Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="product-overview.html">Overview</a></li>
+                    <li><a href="product-core.html">Ailo Core</a></li>
+                    <li><a href="product-accelerate.html">Ailo Accelerate</a></li>
+                    <li><a href="product-partnership.html">Ailo Partnership</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Coaching</h4>
+                <ul>
+                    <li><a href="coaching-overview.html">Overview</a></li>
+                    <li><a href="coaching-resources.html">Resource Centre</a></li>
+                    <li><a href="coaching-events.html">Events</a></li>
+                    <li><a href="coaching-community.html">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#vision">Vision</a></li>
+                    <li><a href="#the-plan">The Plan</a></li>
+                    <li><a href="customer-stories.html">Customer Stories</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#help">Help Centre</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#privacy">Privacy</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Ailo. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active from siblings
+                const siblings = this.parentElement.querySelectorAll('.filter-btn');
+                siblings.forEach(sib => sib.classList.remove('active'));
+                // Add active to clicked
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
