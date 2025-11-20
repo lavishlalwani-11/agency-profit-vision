@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Plan - Ailo</title>
+    <style>
+        :root {
+            /* Ailo Brand Colors - from ailo.io */
+            --sky-blue: #EAF1FB;
+            --cloud-gray: #F7F7F7;
+            --pink-accent: #FDEDF1;
+            --white: #FFFFFF;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #64748b;
+            --primary-action: rgb(238, 11, 79);
+
+            /* Spacing */
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+
+            /* Shadows - minimal and clean */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 8px 12px rgba(0, 0, 0, 0.06);
+
+            /* Border radius */
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--white);
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: var(--spacing-lg);
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.65;
+        }
+
+        .nav-menu a.active {
+            color: var(--primary-action);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 200px;
+            box-shadow: var(--shadow-lg);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-sm) 0;
+            margin-top: var(--spacing-sm);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: var(--spacing-sm) var(--spacing-md);
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background: var(--cloud-gray);
+            opacity: 1;
+        }
+
+        .dropdown-content a.active {
+            background: var(--sky-blue);
+            color: var(--primary-action);
+        }
+
+        .nav-cta {
+            background: var(--primary-action);
+            color: var(--white) !important;
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            opacity: 0.9 !important;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            background: var(--sky-blue);
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 56px);
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-md);
+            letter-spacing: -0.03em;
+        }
+
+        .hero p {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-xl);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-medium);
+            font-weight: 500;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        /* Sections */
+        section {
+            padding: var(--spacing-3xl) var(--spacing-lg);
+        }
+
+        section.light-bg {
+            background: var(--cloud-gray);
+        }
+
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-medium);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--spacing-2xl);
+        }
+
+        .content-block {
+            max-width: 900px;
+            margin: 0 auto var(--spacing-2xl);
+        }
+
+        .content-block h3 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .content-block p {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.7;
+        }
+
+        .content-block strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Key Points Grid */
+        .points-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .point-card {
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .point-card h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .point-card p {
+            font-size: 1rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Phase Cards */
+        .phase-card {
+            background: var(--white);
+            padding: 0;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--spacing-2xl);
+            border-left: 4px solid var(--primary-action);
+            overflow: hidden;
+        }
+
+        .phase-header {
+            padding: var(--spacing-2xl);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            position: relative;
+        }
+
+        .phase-header:hover {
+            background: var(--cloud-gray);
+        }
+
+        .phase-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+            padding-right: var(--spacing-xl);
+        }
+
+        .phase-toggle {
+            position: absolute;
+            right: var(--spacing-2xl);
+            top: var(--spacing-2xl);
+            font-size: 1.5rem;
+            color: var(--primary-action);
+            transition: transform 0.3s ease;
+        }
+
+        .phase-card.active .phase-toggle {
+            transform: rotate(180deg);
+        }
+
+        .phase-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .phase-card.active .phase-content {
+            max-height: 10000px;
+            transition: max-height 0.6s ease-in;
+        }
+
+        .phase-content-inner {
+            padding: 0 var(--spacing-2xl) var(--spacing-2xl);
+        }
+
+        .phase-meta {
+            display: flex;
+            gap: var(--spacing-lg);
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .phase-timeline, .phase-goal-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary-action);
+        }
+
+        .phase-goal {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .phase-section {
+            margin-top: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .phase-section h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .phase-section h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .phase-section p {
+            font-size: 1.0625rem;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.7;
+        }
+
+        .phase-section ul {
+            list-style: none;
+            margin: var(--spacing-md) 0;
+        }
+
+        .phase-section li {
+            padding: var(--spacing-xs) 0 var(--spacing-xs) var(--spacing-lg);
+            position: relative;
+            color: var(--text-medium);
+            font-size: 1.0625rem;
+            line-height: 1.6;
+        }
+
+        .phase-section li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-action);
+            font-weight: 600;
+        }
+
+        .deliverables {
+            background: var(--cloud-gray);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .deliverables h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-dark);
+        }
+
+        .deliverables ul li::before {
+            content: '✓';
+        }
+
+        .key-results {
+            background: var(--pink-accent);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .key-results h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-dark);
+        }
+
+        .key-results p {
+            font-size: 0.9375rem;
+            font-style: italic;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Risk Cards */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .risk-card {
+            background: var(--white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .risk-card h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .risk-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-xs);
+            color: var(--primary-action);
+        }
+
+        .risk-card p {
+            font-size: 1rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--sky-blue);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(32px, 5vw, 44px);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .cta-section p {
+            font-size: 1.125rem;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .cta-list {
+            list-style: none;
+            margin: var(--spacing-xl) 0;
+            text-align: left;
+        }
+
+        .cta-list li {
+            padding: var(--spacing-sm) 0;
+            font-size: 1.0625rem;
+            color: var(--text-medium);
+        }
+
+        .cta-list strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: var(--spacing-xl);
+        }
+
+        .btn-primary {
+            background: var(--primary-action);
+            color: var(--white);
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-dark);
+            padding: 16px 32px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: opacity 0.2s ease;
+            border: 2px solid var(--text-dark);
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-xl);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-tagline {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9375rem;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover {
+            color: var(--white);
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 72px;
+                left: -100%;
+                flex-direction: column;
+                width: 100%;
+                background: var(--white);
+                padding: var(--spacing-lg);
+                box-shadow: var(--shadow-lg);
+                transition: left 0.3s ease;
+                align-items: flex-start;
+                max-height: calc(100vh - 72px);
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                display: none;
+                padding-left: var(--spacing-md);
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-xl);
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--spacing-md);
+                text-align: center;
+            }
+
+            .risk-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .points-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Vector.png" alt="Ailo">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+            <ul class="nav-menu">
+                <li class="dropdown">
+                    <a href="product-overview.html">Platform</a>
+                    <div class="dropdown-content">
+                        <a href="product-overview.html">Overview</a>
+                        <a href="product-core.html">Core</a>
+                        <a href="product-accelerate.html">Accelerate</a>
+                        <a href="product-partnership.html">Partnership</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="coaching-overview.html">Coaching</a>
+                    <div class="dropdown-content">
+                        <a href="coaching-overview.html">Overview</a>
+                        <a href="coaching-resources.html">Resource Centre</a>
+                        <a href="coaching-events.html">Events</a>
+                        <a href="coaching-community.html">Community</a>
+                    </div>
+                </li>
+                <li><a href="customer-stories.html">Customer Stories</a></li>
+                <li><a href="the-plan.html" class="active">The Plan</a></li>
+                <li><a href="#get-started" class="nav-cta">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>The Plan: Agency Profitability at Scale</h1>
+            <p class="hero-subtitle">Our roadmap to transform Ailo from software vendor to strategic business partner</p>
+            <p>This document outlines how we'll fundamentally realign our business model with what agencies actually care about: profitability, growth, and operational excellence.</p>
+        </div>
+    </section>
+
+    <!-- The Goal Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">What We're Building</h2>
+            <div class="content-block">
+                <p>True partnership means that Ailo is building an <strong>operating system for agencies</strong>—a comprehensive framework that shapes how agencies think, operate, and grow. This goes beyond software. It's about becoming the foundation upon which winning agencies are built.</p>
+                <p>This isn't about adding features. It's about <strong>fundamentally realigning our business model</strong> with what agencies actually care about: profitability, growth, and operational excellence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Opportunity Section -->
+    <section class="light-bg">
+        <div class="container">
+            <h2 class="section-title">Why This Matters</h2>
+            <div class="points-grid">
+                <div class="point-card">
+                    <h4>Market Misalignment</h4>
+                    <p>Agencies struggle to connect software spend to business outcomes. Current solutions don't address what actually drives agency success.</p>
+                </div>
+                <div class="point-card">
+                    <h4>Our Current Position</h4>
+                    <p>We're seen as a "tech provider" not "strategic partner." This limits pricing power, customer relationships, and long-term value.</p>
+                </div>
+                <div class="point-card">
+                    <h4>The Unlock</h4>
+                    <p>If we can demonstrably drive agency profitability, we open new monetization models and dramatically increase customer lifetime value.</p>
+                </div>
+                <div class="point-card">
+                    <h4>Competitive Landscape</h4>
+                    <p>No one else is positioned as a true business operating system. This is a significant strategic opportunity.</p>
+                </div>
+                <div class="point-card">
+                    <h4>Revenue Potential</h4>
+                    <p>Success-based pricing, premium tiers, and deeper relationships = exponential value vs. traditional per-property SaaS model.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three-Phase Roadmap Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">The Roadmap</h2>
+
+            <!-- Phase 1 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <h3 class="phase-title">Phase 1: Set Up for Transformation</h3>
+                    <p class="phase-goal"><strong>Goal:</strong> At the end of this phase, Ailo's team, product, pricing, and go-to-market should be ready for agency profitability at scale.</p>
+                    <span class="phase-toggle">▼</span>
+                </div>
+
+                <div class="phase-content">
+                    <div class="phase-content-inner">
+                        <div class="phase-section">
+                    <h3>A. Developing a Shared North Star</h3>
+
+                    <h4>Build Measurement Infrastructure</h4>
+                    <ul>
+                        <li>Instrument the product to capture core agency profitability metrics</li>
+                        <li>Create real-time dashboards visible to the entire Ailo team</li>
+                        <li>Establish baseline metrics for all current customers</li>
+                        <li>Build attribution models connecting Ailo usage to outcomes</li>
+                    </ul>
+
+                    <h4>Embed Core Metrics in Product</h4>
+                    <p>Make these metrics visible and actionable within the platform:</p>
+                    <ul>
+                        <li>Customer satisfaction (Owner NPS, Tenant NPS)</li>
+                        <li>PM satisfaction and retention</li>
+                        <li>Efficiency: Properties per PM ratio</li>
+                        <li>Portfolio growth and churn rates</li>
+                        <li>Management profitability/fees (average fee %, margin %)</li>
+                        <li>Arrears rates and trends</li>
+                        <li>Response time metrics</li>
+                        <li>Portfolio value and quality indicators</li>
+                    </ul>
+
+                    <h4>Make Metrics Transparent</h4>
+                    <ul>
+                        <li>Every team at Ailo should see agency success metrics</li>
+                        <li>Weekly/monthly reviews of customer health tied to these metrics</li>
+                        <li>Success stories tied to specific metric improvements</li>
+                    </ul>
+                </div>
+
+                <div class="phase-section">
+                    <h3>B. Building the Operating System: Team Transformation</h3>
+
+                    <h4>Retrain GTM Teams on Core Metrics and Profitability</h4>
+
+                    <p><strong>Account Management:</strong></p>
+                    <ul>
+                        <li>Train AMs on agency profitability drivers and core metrics</li>
+                        <li>Build AM dashboards showing their agencies' health across all metrics</li>
+                        <li>Shift AM role from "support" to "strategic coach"</li>
+                        <li>AMs help agencies set goals during onboarding, then coach them toward achievement</li>
+                        <li>Quarterly business reviews focused on outcomes, not features</li>
+                        <li>Clear attribution: "Here's how your metrics improved and how Ailo contributed"</li>
+                    </ul>
+
+                    <p><strong>Enablement:</strong></p>
+                    <ul>
+                        <li>Retrain on core metrics and how to move the needle</li>
+                        <li>Develop coaching frameworks and playbooks</li>
+                        <li>Focus on outcome-driven onboarding (not just feature training)</li>
+                        <li>Capture agency intent and goals upfront</li>
+                        <li>Create success paths for different agency types</li>
+                    </ul>
+
+                    <p><strong>Marketing:</strong></p>
+                    <ul>
+                        <li>Refocus content strategy on thought leadership</li>
+                        <li>Publish agency profitability insights, benchmarks, and research</li>
+                        <li>Run events showcasing transformation stories (not features)</li>
+                        <li>Generate leads through coaching and expertise, not just product demos</li>
+                        <li>Goal: "Agencies come to us because we make them better, not just more digital"</li>
+                    </ul>
+                </div>
+
+                <div class="phase-section">
+                    <h3>C. Product Development Priorities</h3>
+
+                    <h4>Area 1: Create a Pain-Free Product Experience</h4>
+                    <p>Get the fundamentals right before pushing transformation messaging.</p>
+
+                    <p><strong>Support & Stability:</strong></p>
+                    <ul>
+                        <li>Get support under control (reduce ticket volume, improve response times)</li>
+                        <li>Address "I just can't do something so simple" issues that create daily friction</li>
+                        <li>Examples: Default inspection templates, CC/FWD functionality in messages, other critical pain points</li>
+                    </ul>
+                    <p><em>Important Note: We won't completely eliminate all issues, but we need them under control. Agencies can't see us as a strategic partner if basic operations are painful.</em></p>
+
+                    <h4>Area 2: Continue Innovation with Ailo Accelerate Features</h4>
+                    <p>Keep pushing the platform's value and differentiation:</p>
+                    <ul>
+                        <li>Customer sentiment analysis</li>
+                        <li>AI summary and conversation intelligence</li>
+                        <li>AI keys (automated data extraction and classification)</li>
+                        <li>Other AI-powered automation features</li>
+                    </ul>
+                    <p><strong>Why This Matters:</strong> We need to continue innovating to justify premium tiers and maintain competitive advantage. Can't just fix problems—must also demonstrate future vision.</p>
+
+                    <h4>Area 3: Close the Loop for Sales (Growth Module)</h4>
+                    <p>Complete the end-to-end agency lifecycle:</p>
+                    <p><strong>First Priority: Renewed focus on Growth module</strong></p>
+                    <ul>
+                        <li>Lead capture and tracking</li>
+                        <li>Conversion pipeline</li>
+                        <li>Landlord onboarding workflows</li>
+                    </ul>
+                    <p><strong>Second Priority: Leasing workflows</strong></p>
+                    <ul>
+                        <li>Tenant acquisition</li>
+                        <li>Application processing</li>
+                        <li>Seamless handoff to management</li>
+                    </ul>
+                    <p><strong>Why This Matters:</strong> Agencies need growth tools to achieve profitability outcomes. Can't just help them manage better—need to help them grow.</p>
+                </div>
+
+                <div class="phase-section">
+                    <h3>D. Pilot Partnership Model</h3>
+                    <ul>
+                        <li>After shared dashboard is live, pilot Partnership success-based pricing with 5 agencies</li>
+                        <li>Set clear goals with each pilot agency upfront</li>
+                        <li>Track attribution: which Ailo interventions drive which outcomes</li>
+                        <li>Document learnings from each pilot</li>
+                        <li>Validate pricing models and operational approach</li>
+                    </ul>
+                </div>
+
+                        <div class="deliverables">
+                            <h4>Phase 1 Key Deliverables</h4>
+                            <ul>
+                                <li>Measurement infrastructure live and shared dashboards operational</li>
+                                <li>GTM teams retrained and equipped</li>
+                                <li>Core/Accelerate tiers launched</li>
+                                <li>Partnership pilots running with clear goals</li>
+                                <li>First case studies in progress</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <h3 class="phase-title">Phase 2: Practice & Prove the Model</h3>
+                    <p class="phase-goal"><strong>Goal:</strong> Practice agency profitability at scale and prove the model works. At the end of this phase, our teams should be consistently getting wins on the board in driving agency profitability. We should start getting referrals and market mentions from our success.</p>
+                    <span class="phase-toggle">▼</span>
+                </div>
+
+                <div class="phase-content">
+                    <div class="phase-content-inner">
+                        <div class="phase-section">
+                    <h3>A. GTM Teams Operating Harmoniously Around Core Metrics</h3>
+
+                    <h4>Consistent Success with Continuous Learning</h4>
+                    <ul>
+                        <li>Teams operating with shared language and focus on core metrics</li>
+                        <li>Test and learn fast from failures—whether product features, coaching techniques, or data approaches</li>
+                        <li>Document all learnings systematically (what works, what doesn't, why)</li>
+                        <li>Share successes and failures across teams in real-time</li>
+                    </ul>
+
+                    <h4>AI-Assisted Account Management at Scale</h4>
+                    <ul>
+                        <li>AI helps AMs prioritize which agencies to coach based on risk indicators, opportunity indicators, and engagement patterns</li>
+                        <li>AI provides clear coaching points for each agency interaction</li>
+                        <li>AMs focus time where they can have highest impact</li>
+                    </ul>
+
+                    <h4>Building the Evidence Base</h4>
+                    <ul>
+                        <li>Customer stories consistently published (aim for 2-3 per month)</li>
+                        <li>Stories shared at community events and webinars</li>
+                        <li>Focus on clear attribution: "Here's what changed and how Ailo contributed"</li>
+                        <li>Agencies starting to refer others based on outcomes</li>
+                    </ul>
+                </div>
+
+                <div class="phase-section">
+                    <h3>B. Scale Partnership Model</h3>
+
+                    <h4>Validate and Expand</h4>
+                    <ul>
+                        <li>Evaluate Phase 1 pilot results</li>
+                        <li>Refine success-based pricing formulas based on learnings</li>
+                        <li>Onboard more agencies into Partnership tier (target: 20-30 agencies)</li>
+                        <li>Build operational playbook for Partnership management</li>
+                        <li>Create Partnership tier go-to-market approach</li>
+                    </ul>
+
+                    <h4>Partnership Operations</h4>
+                    <ul>
+                        <li>Dedicated account management for Partnership agencies</li>
+                        <li>Regular business reviews (monthly or quarterly)</li>
+                        <li>Clear success metrics tracked for each partnership</li>
+                        <li>Refined pricing models based on pilot data</li>
+                    </ul>
+                </div>
+
+                <div class="phase-section">
+                    <h3>C. Advanced Accelerate Features & AI Agents</h3>
+
+                    <h4>Continue Innovation</h4>
+                    <p>Develop and launch advanced AI capabilities:</p>
+                    <ul>
+                        <li>AI Mode: Conversational interface for platform interaction</li>
+                        <li>AI Team Coaching: Real-time performance feedback for PMs</li>
+                        <li>AI Insights & Guidance: Proactive recommendations pushed to users</li>
+                    </ul>
+
+                    <h4>Deploy AI Agents with Clear Attribution</h4>
+                    <p><em>"Partner with us to manage your agency"</em></p>
+
+                    <p><strong>Growth Agent (Free):</strong> Lead nurture and conversion automation. Free because it helps both Ailo and agency grow (Win-Win). Drives portfolio growth that benefits everyone.</p>
+
+                    <p><strong>Repairs Agent (Revenue Share):</strong> End-to-end repairs management. Agency makes money from tradie referral fees/cuts. Ailo takes a clip of the value created.</p>
+
+                    <p><strong>Compliance Agent (Revenue Share):</strong> Manage all compliance through digital certificates. Price of compliance today + makes additional money. Ailo takes a clip of the compliance revenue.</p>
+
+                    <p><strong>Staff Performance Agent (Value-Based):</strong> Helps team do their work better. Coaching and motivating staff in real-time. Boosts value and saves time. Pricing based on team size or value saved.</p>
+
+                    <p><strong>Agent Attribution:</strong> Each agent must show clear before/after impact on agency metrics.</p>
+                </div>
+
+                <div class="phase-section">
+                    <h3>D. Close the Circle (Lower Priority)</h3>
+                    <p><strong>Commercial Property Support:</strong> Extend platform capabilities to commercial properties, addressing gap in current offering. Secondary priority behind proving residential model.</p>
+                </div>
+
+                        <div class="deliverables">
+                            <h4>Phase 2 Key Deliverables</h4>
+                            <ul>
+                                <li>GTM teams consistently driving agency profitability wins</li>
+                                <li>15-20 published case studies with clear attribution</li>
+                                <li>AI agents launched with clear value models</li>
+                                <li>Partnership tier operational (20-30 agencies)</li>
+                                <li>Market referrals and mentions beginning</li>
+                                <li>Documented playbooks from learnings</li>
+                                <li>Advanced Accelerate features live</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase-card">
+                <div class="phase-header">
+                    <h3 class="phase-title">Phase 3: Scale & Lead</h3>
+                    <p class="phase-goal"><strong>Goal:</strong> Become the recognized leader in agency profitability. Scale the model across the customer base. Agencies compete to share their P&Ls with us and partner with us.</p>
+                    <span class="phase-toggle">▼</span>
+                </div>
+
+                <div class="phase-content">
+                    <div class="phase-content-inner">
+                        <div class="phase-section">
+                    <h3>A. Market Leadership</h3>
+                    <ul>
+                        <li>Position as thought leader in agency profitability</li>
+                        <li>Regular industry research and benchmarking</li>
+                        <li>Major annual event (conference/summit)</li>
+                        <li>Media and PR campaign</li>
+                        <li>Community becomes industry hub</li>
+                        <li>Agencies actively want to partner: Sharing P&Ls becomes badge of honor</li>
+                        <li>Partnership tier seen as exclusive club that agencies compete to join</li>
+                    </ul>
+                </div>
+
+                <div class="phase-section">
+                    <h3>B. Scale Operations</h3>
+                    <ul>
+                        <li>Expand coaching team (20+ coaches)</li>
+                        <li>Onboard 50+ Partnership agencies (selective, competitive process)</li>
+                        <li>Tier distribution target: 40% Core, 40% Accelerate, 20% Partnership</li>
+                        <li>Revenue per agency increases 3-5x over per-property model</li>
+                        <li>Agencies proactively approaching us to share financials and prove readiness for Partnership</li>
+                    </ul>
+                </div>
+
+                <div class="phase-section">
+                    <h3>C. Product Maturity</h3>
+                    <ul>
+                        <li>Full AI agent library (10+ agents)</li>
+                        <li>Predictive analytics and recommendations</li>
+                        <li>Industry-leading coaching AI</li>
+                        <li>Platform recognized as "operating system" not just software</li>
+                    </ul>
+                </div>
+
+                <div class="phase-section">
+                    <h3>D. New Revenue Models</h3>
+                    <ul>
+                        <li>Success-based pricing proven and scaled</li>
+                        <li>Coaching and events as revenue streams</li>
+                        <li>Premium services beyond software</li>
+                        <li>Partnership tier becoming high-margin business</li>
+                    </ul>
+                </div>
+
+                        <div class="deliverables">
+                            <h4>Phase 3 Key Deliverables</h4>
+                            <ul>
+                                <li>Market leader position established</li>
+                                <li>Scaled coaching and partnership operations</li>
+                                <li>New revenue models contributing meaningfully</li>
+                                <li>Customer lifetime value 3-5x higher than SaaS baseline</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risks & Mitigations Section -->
+    <section class="light-bg">
+        <div class="container">
+            <h2 class="section-title">What We're Watching</h2>
+            <div class="risk-grid">
+                <div class="risk-card">
+                    <h4>Risk 1: Attribution Is Unclear</h4>
+                    <p class="risk-label">Concern</p>
+                    <p>Can't prove Ailo drives outcomes vs. other factors</p>
+                    <p class="risk-label">Mitigation</p>
+                    <p>Heavy investment in measurement infrastructure first; pilot approach lets us test before scaling</p>
+                </div>
+
+                <div class="risk-card">
+                    <h4>Risk 2: Agencies Don't Value Coaching</h4>
+                    <p class="risk-label">Concern</p>
+                    <p>See it as overhead, not value-add</p>
+                    <p class="risk-label">Mitigation</p>
+                    <p>Include coaching in all tiers from day one; make it core to the experience, not optional add-on</p>
+                </div>
+
+                <div class="risk-card">
+                    <h4>Risk 3: Can't Hire Right Coaching Talent</h4>
+                    <p class="risk-label">Concern</p>
+                    <p>Need ex-agency principals/operators, not just support staff</p>
+                    <p class="risk-label">Mitigation</p>
+                    <p>Partner with agency consultants initially; build hiring pipeline; strong comp packages</p>
+                </div>
+
+                <div class="risk-card">
+                    <h4>Risk 4: Success-Based Pricing Too Complex</h4>
+                    <p class="risk-label">Concern</p>
+                    <p>Hard to sell, hard to administer</p>
+                    <p class="risk-label">Mitigation</p>
+                    <p>Start simple with pilots; only scale what works; keep Core/Accelerate as traditional pricing</p>
+                </div>
+
+                <div class="risk-card">
+                    <h4>Risk 5: Market Perception Doesn't Shift</h4>
+                    <p class="risk-label">Concern</p>
+                    <p>Still seen as "just software"</p>
+                    <p class="risk-label">Mitigation</p>
+                    <p>Heavy investment in case studies, thought leadership, events; let customers tell the story</p>
+                </div>
+
+                <div class="risk-card">
+                    <h4>Risk 6: Product Isn't Complete Enough</h4>
+                    <p class="risk-label">Concern</p>
+                    <p>Core feature gaps undermine "complete system" positioning</p>
+                    <p class="risk-label">Mitigation</p>
+                    <p>Phase 1 prioritizes completing Core; don't market transformation until foundation is solid</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Active Projects Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">What's Already Underway</h2>
+            <div class="content-block">
+                <p><strong>These aren't starting from zero—we're building on existing momentum.</strong></p>
+                <ul style="list-style-type: disc; padding-left: var(--spacing-lg); margin-top: var(--spacing-lg);">
+                    <li style="margin-bottom: var(--spacing-sm);"><strong>Ailo Accelerate tier:</strong> In development, aligns with Phase 1</li>
+                    <li style="margin-bottom: var(--spacing-sm);"><strong>AI projects framework:</strong> Foundation for AI agents and automation</li>
+                    <li style="margin-bottom: var(--spacing-sm);"><strong>Core feature completion:</strong> Inspections, Messages, Leasing priorities</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">Ailo</div>
+                    <p class="footer-tagline">Building winning agencies together</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="product-overview.html">Overview</a></li>
+                        <li><a href="product-core.html">Core</a></li>
+                        <li><a href="product-accelerate.html">Accelerate</a></li>
+                        <li><a href="product-partnership.html">Partnership</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Learn</h4>
+                    <ul>
+                        <li><a href="coaching-overview.html">Coaching</a></li>
+                        <li><a href="customer-stories.html">Customer Stories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="the-plan.html">The Plan</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <span class="footer-copyright">© 2025 Ailo. All rights reserved.</span>
+                </div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
+                    <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Mobile dropdown toggle
+        document.querySelectorAll('.dropdown > a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    link.parentElement.classList.toggle('active');
+                }
+            });
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-menu a:not(.dropdown > a)').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Phase accordion functionality
+        const phaseCards = document.querySelectorAll('.phase-card');
+
+        phaseCards.forEach((card, index) => {
+            const header = card.querySelector('.phase-header');
+
+            header.addEventListener('click', () => {
+                // If this card is already active, do nothing (keep it open)
+                const isActive = card.classList.contains('active');
+
+                // Close all phase cards
+                phaseCards.forEach(c => c.classList.remove('active'));
+
+                // If the clicked card wasn't active, open it
+                if (!isActive) {
+                    card.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
