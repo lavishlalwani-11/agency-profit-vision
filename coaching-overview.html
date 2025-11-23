@@ -335,13 +335,15 @@
             width: 120px;
             height: 120px;
             border-radius: var(--radius-full);
-            background: linear-gradient(135deg, var(--sky-blue) 0%, var(--warm-purple) 100%);
             margin: 0 auto var(--spacing-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
             box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .coach-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .coach-card h3 {
@@ -788,32 +790,31 @@
             </div>
             <div class="coaches-grid">
                 <div class="coach-card">
-                    <div class="coach-photo">👩‍💼</div>
+                    <div class="coach-photo">
+                        <img src="images/coaches/1517039303830.jpeg" alt="Sarah Chen">
+                    </div>
                     <h3>Sarah Chen</h3>
                     <p class="coach-background">Former agency principal, 15 years in property management</p>
                     <p class="coach-expertise">Expertise: Growth strategy, team development, operational efficiency</p>
                     <p class="coach-quote">"I know what it's like to feel overwhelmed by growth. I'm here to help you scale with confidence, not chaos."</p>
                 </div>
                 <div class="coach-card">
-                    <div class="coach-photo">👨‍💼</div>
+                    <div class="coach-photo">
+                        <img src="images/coaches/1695714565671.jpeg" alt="Marcus Thompson">
+                    </div>
                     <h3>Marcus Thompson</h3>
                     <p class="coach-background">Ex-property manager turned business coach, 10 years industry experience</p>
                     <p class="coach-expertise">Expertise: Technology adoption, workflow optimization, change management</p>
                     <p class="coach-quote">"Switching systems can feel scary. I'll walk you through it step by step, and celebrate every win with you."</p>
                 </div>
                 <div class="coach-card">
-                    <div class="coach-photo">👩‍🏫</div>
+                    <div class="coach-photo">
+                        <img src="images/coaches/1760335327451.png" alt="Emily Rodriguez">
+                    </div>
                     <h3>Emily Rodriguez</h3>
                     <p class="coach-background">Agency operations specialist, 12 years building high-performing teams</p>
                     <p class="coach-expertise">Expertise: Team performance, staff retention, AI strategy</p>
                     <p class="coach-quote">"Your team's success is your success. Let's build a culture where everyone thrives."</p>
-                </div>
-                <div class="coach-card">
-                    <div class="coach-photo">👨‍💻</div>
-                    <h3>David Nguyen</h3>
-                    <p class="coach-background">Financial strategist and former agency CFO, 20 years experience</p>
-                    <p class="coach-expertise">Expertise: Financial optimization, fee structures, profitability planning</p>
-                    <p class="coach-quote">"Numbers tell stories. I'll help you understand yours and use them to grow confidently."</p>
                 </div>
             </div>
         </div>
@@ -830,7 +831,7 @@
                 <div class="tier-support-card">
                     <h3>Ailo Core</h3>
                     <ul>
-                        <li>Up to 10 hours per month</li>
+                        <li>Up to XX hours per month</li>
                         <li>Foundation and optimization support</li>
                         <li>Platform mastery and workflow guidance</li>
                         <li>Monthly check-ins to keep you on track</li>
@@ -840,7 +841,7 @@
                 <div class="tier-support-card">
                     <h3>Ailo Accelerate</h3>
                     <ul>
-                        <li>Up to 10 hours per month</li>
+                        <li>Up to XX hours per month</li>
                         <li>Everything in Core, plus AI strategy</li>
                         <li>Performance coaching with AI insights</li>
                         <li>Help your team embrace new capabilities</li>
