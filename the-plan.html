@@ -281,6 +281,12 @@
             padding: var(--spacing-xl);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .point-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
         .point-card h4 {
@@ -301,10 +307,19 @@
             background: var(--white);
             padding: 0;
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: var(--spacing-2xl);
-            border-left: 4px solid var(--primary-action);
+            border: 3px solid #e0e0e0;
+            border-left: 6px solid var(--primary-action);
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .phase-card:hover {
+            border-color: #d0d0d0;
+            border-left-color: var(--primary-action);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
         }
 
         .phase-header {
@@ -377,51 +392,82 @@
         }
 
         .phase-section {
-            margin-top: var(--spacing-xl);
-            margin-bottom: var(--spacing-xl);
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(238, 11, 79, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .phase-section:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         .phase-section h3 {
             font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: var(--spacing-md);
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
             color: var(--text-dark);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 2px solid var(--sky-blue);
+            padding-left: var(--spacing-sm);
         }
 
         .phase-section h4 {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             font-weight: 600;
             margin-top: var(--spacing-lg);
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding-left: var(--spacing-sm);
+        }
+
+        .phase-section h4::before {
+            content: '●';
+            color: var(--primary-action);
+            font-size: 0.75rem;
         }
 
         .phase-section p {
-            font-size: 1.0625rem;
+            font-size: 1rem;
             color: var(--text-medium);
             margin-bottom: var(--spacing-md);
             line-height: 1.7;
+            padding-left: var(--spacing-lg);
         }
 
         .phase-section ul {
             list-style: none;
             margin: var(--spacing-md) 0;
+            background: rgba(234, 241, 251, 0.3);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-md);
+            margin-left: var(--spacing-sm);
         }
 
         .phase-section li {
-            padding: var(--spacing-xs) 0 var(--spacing-xs) var(--spacing-lg);
+            padding: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-xl);
             position: relative;
             color: var(--text-medium);
-            font-size: 1.0625rem;
+            font-size: 0.9375rem;
             line-height: 1.6;
         }
 
         .phase-section li::before {
-            content: '→';
+            content: '✓';
             position: absolute;
-            left: 0;
+            left: var(--spacing-sm);
             color: var(--primary-action);
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1rem;
         }
 
         .deliverables {
@@ -475,6 +521,12 @@
             padding: var(--spacing-xl);
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .risk-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
         }
 
         .risk-card h4 {
@@ -496,6 +548,65 @@
 
         .risk-card p {
             font-size: 1rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Process Steps */
+        .process-steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .process-step {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: start;
+            gap: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .process-step:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .process-step:hover .step-number {
+            transform: scale(1.1);
+        }
+
+        .step-number {
+            background: var(--primary-action);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .step-content h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            color: var(--text-dark);
+        }
+
+        .step-content p {
+            font-size: 15px;
             color: var(--text-medium);
             line-height: 1.6;
         }
@@ -785,9 +896,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>The Plan: Agency Profitability at Scale</h1>
-            <p class="hero-subtitle">Our roadmap to transform Ailo from software vendor to strategic business partner</p>
-            <p>This document outlines how we'll fundamentally realign our business model with what agencies actually care about: profitability, growth, and operational excellence.</p>
+            <h1>The Plan for Agency Profitability</h1>
+            <p class="hero-subtitle">Our roadmap to transform Ailo from a software vendor to a leader in creating winning agencies</p>
         </div>
     </section>
 
@@ -812,20 +922,12 @@
                     <p>Agencies struggle to connect software spend to business outcomes. Current solutions don't address what actually drives agency success.</p>
                 </div>
                 <div class="point-card">
-                    <h4>Our Current Position</h4>
-                    <p>We're seen as a "tech provider" not "strategic partner." This limits pricing power, customer relationships, and long-term value.</p>
-                </div>
-                <div class="point-card">
                     <h4>The Unlock</h4>
                     <p>If we can demonstrably drive agency profitability, we open new monetization models and dramatically increase customer lifetime value.</p>
                 </div>
                 <div class="point-card">
                     <h4>Competitive Landscape</h4>
                     <p>No one else is positioned as a true business operating system. This is a significant strategic opportunity.</p>
-                </div>
-                <div class="point-card">
-                    <h4>Revenue Potential</h4>
-                    <p>Success-based pricing, premium tiers, and deeper relationships = exponential value vs. traditional per-property SaaS model.</p>
                 </div>
             </div>
         </div>
@@ -855,19 +957,6 @@
                         <li>Create real-time dashboards visible to the entire Ailo team</li>
                         <li>Establish baseline metrics for all current customers</li>
                         <li>Build attribution models connecting Ailo usage to outcomes</li>
-                    </ul>
-
-                    <h4>Embed Core Metrics in Product</h4>
-                    <p>Make these metrics visible and actionable within the platform:</p>
-                    <ul>
-                        <li>Customer satisfaction (Owner NPS, Tenant NPS)</li>
-                        <li>PM satisfaction and retention</li>
-                        <li>Efficiency: Properties per PM ratio</li>
-                        <li>Portfolio growth and churn rates</li>
-                        <li>Management profitability/fees (average fee %, margin %)</li>
-                        <li>Arrears rates and trends</li>
-                        <li>Response time metrics</li>
-                        <li>Portfolio value and quality indicators</li>
                     </ul>
 
                     <h4>Make Metrics Transparent</h4>
@@ -1207,17 +1296,46 @@
         </div>
     </section>
 
-    <!-- Active Projects Section -->
-    <section>
+    <!-- Next Steps Section -->
+    <section class="light-bg">
         <div class="container">
-            <h2 class="section-title">What's Already Underway</h2>
-            <div class="content-block">
-                <p><strong>These aren't starting from zero—we're building on existing momentum.</strong></p>
-                <ul style="list-style-type: disc; padding-left: var(--spacing-lg); margin-top: var(--spacing-lg);">
-                    <li style="margin-bottom: var(--spacing-sm);"><strong>Ailo Accelerate tier:</strong> In development, aligns with Phase 1</li>
-                    <li style="margin-bottom: var(--spacing-sm);"><strong>AI projects framework:</strong> Foundation for AI agents and automation</li>
-                    <li style="margin-bottom: var(--spacing-sm);"><strong>Core feature completion:</strong> Inspections, Messages, Leasing priorities</li>
-                </ul>
+            <h2 class="section-title">The Next Steps</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Define what Ailo is and ensure this direction respects that decision</h4>
+                        <p>Clarify Ailo's core identity and validate that this strategic direction aligns with who we are and who we want to become</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Develop detailed plans for projects in phase 1 including financial modelling</h4>
+                        <p>Create comprehensive project plans with timelines, resource allocation, and financial models to ensure Phase 1 success</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Review the overlaps with the other value streams</h4>
+                        <p>Identify and analyze intersections with other value streams to ensure alignment and maximize synergies across the organization</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Validate and confirm key results to measure success of each phase</h4>
+                        <p>Establish clear, measurable KPIs and success metrics for each phase to track progress and ensure accountability</p>
+                    </div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>Execute the plan</h4>
+                        <p>Begin implementation of Phase 1 with full team alignment and commitment to the roadmap</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1313,16 +1431,8 @@
             const header = card.querySelector('.phase-header');
 
             header.addEventListener('click', () => {
-                // If this card is already active, do nothing (keep it open)
-                const isActive = card.classList.contains('active');
-
-                // Close all phase cards
-                phaseCards.forEach(c => c.classList.remove('active'));
-
-                // If the clicked card wasn't active, open it
-                if (!isActive) {
-                    card.classList.add('active');
-                }
+                // Toggle the active state of the clicked card
+                card.classList.toggle('active');
             });
         });
     </script>
