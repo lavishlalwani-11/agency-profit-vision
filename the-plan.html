@@ -310,14 +310,12 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             margin-bottom: var(--spacing-2xl);
             border: 3px solid #e0e0e0;
-            border-left: 6px solid var(--primary-action);
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
         .phase-card:hover {
             border-color: #d0d0d0;
-            border-left-color: var(--primary-action);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             transform: translateY(-2px);
         }
@@ -333,6 +331,10 @@
             background: var(--cloud-gray);
         }
 
+        .phase-card.active .phase-header {
+            background: var(--cloud-gray);
+        }
+
         .phase-title {
             font-size: 2rem;
             font-weight: 700;
@@ -345,8 +347,8 @@
             position: absolute;
             right: var(--spacing-2xl);
             top: var(--spacing-2xl);
-            font-size: 1.5rem;
-            color: var(--primary-action);
+            font-size: 1.25rem;
+            color: var(--text-medium);
             transition: transform 0.3s ease;
         }
 
